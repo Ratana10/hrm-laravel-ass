@@ -67,11 +67,16 @@
                 </ul> <!--end::End Navbar Links-->
             </div> <!--end::Container-->
         </nav> <!--end::Header--> <!--begin::Sidebar-->
+        @php
+            $coM = App\Models\Company::find(1);
+        @endphp
         <aside class="shadow app-sidebar bg-body-secondary" data-bs-theme="dark"> <!--begin::Sidebar Brand-->
             <div class="sidebar-brand"> <!--begin::Brand Link--> <a href="./index.html" class="brand-link">
-                    <!--begin::Brand Image--> <img src="{{ asset('adminltev4/dist/assets/img/AdminLTELogo.png') }}"
-                        alt="AdminLTE Logo" class="shadow opacity-75 brand-image"> <!--end::Brand Image-->
-                    <!--begin::Brand Text--> <span class="brand-text fw-light">AdminLTE 4</span> <!--end::Brand Text-->
+                    <!--begin::Brand Image--> <img src="{{ asset($coM->photo) }}" alt="AdminLTE Logo"
+                        class="shadow opacity-75 brand-image rounded-circle">
+                    <!--end::Brand Image-->
+                    <!--begin::Brand Text--> <span class="brand-text fw-light">{{ $coM->name }}</span>
+                    <!--end::Brand Text-->
                 </a> <!--end::Brand Link--> </div> <!--end::Sidebar Brand--> <!--begin::Sidebar Wrapper-->
             <div class="sidebar-wrapper">
                 <nav class="mt-2"> <!--begin::Sidebar Menu-->

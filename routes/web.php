@@ -20,6 +20,14 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/company/list', [App\Http\Controllers\CompanyController::class, 'index'])->name('company.index');
     Route::get('/company-list/edit', [App\Http\Controllers\CompanyController::class, 'edit'])->name('company.edit');
     Route::post('/company-list/update', [App\Http\Controllers\CompanyController::class, 'update'])->name('company.update');
+
+    //user
+    Route::get('/user/list', [App\Http\Controllers\UserController::class, 'index'])->name('user.index');
+    Route::get('/user/add', [App\Http\Controllers\UserController::class, 'add'])->name('user.add');
+    Route::post('/user/store', [App\Http\Controllers\UserController::class, 'store'])->name('user.store');
+    Route::get('/user/edit', [App\Http\Controllers\UserController::class, 'edit'])->name('user.edit');
+    Route::post('/user/update', [App\Http\Controllers\UserController::class, 'update'])->name('user.update');
+    Route::get('/user/{userId}/delete', [App\Http\Controllers\UserController::class, 'delete'])->name('user.delete');
 });
 
 Route::fallback(function(){

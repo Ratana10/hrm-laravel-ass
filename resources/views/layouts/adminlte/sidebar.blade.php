@@ -5,7 +5,8 @@
             <p>{{ __('Dashboard') }}</p>
         </a>
     </li>
-    <li class="nav-item {{ request()->routeIs('company.index') ? 'menu-open' : '' }}">
+    <li
+        class="nav-item {{ request()->routeIs('company.index') || request()->routeIs('user.index') ? 'menu-open' : '' }}">
         <a href="#" class="nav-link">
             <i class="nav-icon bi bi-speedometer"></i>
             <p>
@@ -19,6 +20,13 @@
                     class="nav-link {{ request()->routeIs('company.index') ? 'active' : '' }}"> <i
                         class="nav-icon bi bi-circle"></i>
                     <p>{{ __('Company') }}</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('user.index') }}"
+                    class="nav-link {{ request()->routeIs('user.index') ? 'active' : '' }}"> <i
+                        class="nav-icon bi bi-circle"></i>
+                    <p>{{ __('User') }}</p>
                 </a>
             </li>
         </ul>
