@@ -4,7 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LanguageController;
 
 
-Auth::routes(['register' => false]);
+Auth::routes(['register' => false, 'login' => false]);
+
+Route::get('/login', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('login');
+Route::post('/login-form', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('login_post');
 
 Route::group(['middleware' => 'auth'], function(){
     Route::get('/', function () {
@@ -12,6 +15,11 @@ Route::group(['middleware' => 'auth'], function(){
     })->name('home');
 
     Route::get('/switch-lang/{lang}', [LanguageController::class,'switchLang'])->name('lang');
+
+    //company
+    Route::get('/company/list', [App\Http\Controllers\CompanyController::class, 'index'])->name('company.index');
+    Route::get('/company-list/edit', [App\Http\Controllers\CompanyController::class, 'edit'])->name('company.edit');
+    Route::post('/company-list/update', [App\Http\Controllers\CompanyController::class, 'update'])->name('company.update');
 });
 
 Route::fallback(function(){

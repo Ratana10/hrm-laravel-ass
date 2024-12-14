@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
+            $table->integer('open_room_id');
             $table->string('date');
             $table->float('room_amount',15,2);
             $table->float('e_amount',25,2);
