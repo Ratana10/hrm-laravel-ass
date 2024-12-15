@@ -2,13 +2,14 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-            <h2 class="mb-0 text-primary"><i class="fa fa-users"></i> {{ __('Add User') }}</h2>
+            <h2 class="mb-0 text-primary"><i class="fa fa-users"></i> {{ __('Add Payment Method') }}</h2>
         </div>
-        <form action="{{ route('user.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('payment_method.store') }}" method="POST" enctype="multipart/form-data">
             <div class="card-body">
                 <div class="row">
                     <div class="col-12">
-                        <a href="{{ route('user.index') }}" class="btn btn-danger"><i class="fa fa-arrow-left"></i>
+                        <a href="{{ route('payment_method.index') }}" class="btn btn-danger"><i
+                                class="fa fa-arrow-left"></i>
                             {{ __('Back') }}</a>
                     </div>
                 </div>
@@ -16,8 +17,6 @@
                     <div class="text-center col-4">
                         <img src="{{ asset('default/no_photo.avif') }}" alt="" class="rounded-circle" width="200"
                             height="200" id="photo" style="object-fit: cover; background-position: center;">
-                        <input type="file" onchange="handeleFile(event)" class="mt-5 form-control" name="photo"
-                            accept="image/*">
                     </div>
                     <div class="col-8">
                         @csrf
@@ -26,16 +25,23 @@
                             <input type="text" name="name" class="form-control" required>
                         </div>
                         <div class="mb-3">
-                            <label for="phone">{{ __('Phone') }}</label>
-                            <input type="text" name="phone" class="form-control">
+                            <label for="type">{{ __('Currency') }} <span class="text-danger">*</span></label>
+                            <select name="currency" class="form-control" id="type">
+                                <option value="USD">{{ __('USD') }}</option>
+                                <option value="KHR">{{ __('KHR') }}</option>
+                            </select>
                         </div>
                         <div class="mb-3">
-                            <label for="email">{{ __('Email') }} <span class="text-danger">*</span></label>
-                            <input type="text" name="email" class="form-control" required>
+                            <label for="type">{{ __('Type') }} <span class="text-danger">*</span></label>
+                            <select name="is_cash" class="form-control" id="type">
+                                <option value="1">{{ __('Cash') }}</option>
+                                <option value="0">{{ __('Online Payment') }}</option>
+                            </select>
                         </div>
                         <div class="mb-3">
-                            <label for="password">{{ __('Password') }} <span class="text-danger">*</span></label>
-                            <input type="text" name="password" class="form-control" required>
+                            <label for="photo">{{ __('Photo') }}</label>
+                            <input type="file" onchange="handeleFile(event)" class="form-control" name="photo"
+                                accept="image/*">
                         </div>
                         <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>
                             {{ __('Save') }}</button>

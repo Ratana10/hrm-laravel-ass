@@ -16,8 +16,8 @@
                     <td>{{ $user->phone }}</td>
                     <td>{{ $user->email }}</td>
                     <td>
-                        <img src="{{ $user->photo ? asset($user->photo) : asset('img/no-image.png') }}" width="50"
-                            height="50">
+                        <img src="{{ $user->photo ? asset($user->photo) : asset('default/no_photo.avif') }}"
+                            width="50" height="50">
                     </td>
                     <td>
                         <div class="btn-group">
@@ -26,9 +26,9 @@
                                 {{ __('Edit') }}
                             </a>
 
-                            <button type="button" class="btn btn-danger bg-danger popover" data-bs-container="body"
-                                role="button" data-html="true" data-bs-toggle="popover" data-bs-placement="left"
-                                data-bs-title="{{ __('Are you sure ?') }}"
+                            <button type="button" class="btn btn-danger bg-danger popover border-danger"
+                                data-bs-container="body" role="button" data-html="true" data-bs-toggle="popover"
+                                data-bs-placement="left" data-bs-title="{{ __('Are you sure ?') }}"
                                 data-bs-template='
                                 
                                 <div class="p-3 bg-white popover" role="tooltip">

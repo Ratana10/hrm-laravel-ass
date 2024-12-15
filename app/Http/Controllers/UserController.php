@@ -12,7 +12,7 @@ class UserController extends Controller
         $users = User::paginate(10);
         return view('user.index', compact('users'));
     }
-    public function create(){
+    public function add(){
         return view('user.create');
     }
     public function store(Request $r){
@@ -33,7 +33,14 @@ class UserController extends Controller
         $user = User::find($id);
         $user->name = $r->name;
         $user->email = $r->email;
-        $user->password = Hash::make($r->password);
+        if($r->password){
+            $user->password = Hash::make($r->password);
+        }
+        if($r->hasFile('photo')){
+            if($user->photo){
+                unlink(public_path($user->photo));
+            }
+        }
         $user->photo = $r->hasFile('photo') ? $r->file('photo')->store('user','custom') : null;
         $user->phone = $r->phone;
         $user->save();
@@ -42,6 +49,11 @@ class UserController extends Controller
     public function delete($id){
         $user = User::find($id);
         $user->delete();
+
+        if($user->photo){
+            unlink(public_path($user->photo));
+        }
+
         return redirect()->route('user.index')->with('success', 'User deleted successfully');
     }
 }
