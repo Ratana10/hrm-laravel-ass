@@ -39,7 +39,40 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/payment-method/store', [App\Http\Controllers\PaymentMethodController::class, 'store'])->name('payment_method.store');
     Route::get('/payment-method/{paymentMethodId}/edit', [App\Http\Controllers\PaymentMethodController::class, 'edit'])->name('payment_method.edit');
     Route::post('/payment-method/update/{paymentMethodId}', [App\Http\Controllers\PaymentMethodController::class, 'update'])->name('payment_method.update');
-    Route::get('/payment-method/{paymentMethodId}/delete', [App\Http\Controllers\PaymentMethodController::class, 'delete'])->name('payment_method.delete');});
+    Route::get('/payment-method/{paymentMethodId}/delete', [App\Http\Controllers\PaymentMethodController::class, 'delete'])->name('payment_method.delete');
+
+    //room type
+    Route::get('/room-type/list', [App\Http\Controllers\RoomTypeController::class, 'index'])->name('room_type.index');
+    Route::get('/room-type/add', [App\Http\Controllers\RoomTypeController::class, 'add'])->name('room_type.add');
+    Route::post('/room-type/store', [App\Http\Controllers\RoomTypeController::class, 'store'])->name('room_type.store');
+    Route::get('/room-type/{roomTypeId}/edit', [App\Http\Controllers\RoomTypeController::class, 'edit'])->name('room_type.edit');
+    Route::post('/room-type/update/{roomTypeId}', [App\Http\Controllers\RoomTypeController::class, 'update'])->name('room_type.update');
+    Route::get('/room-type/{roomTypeId}/delete', [App\Http\Controllers\RoomTypeController::class, 'delete'])->name('room_type.delete');
+
+    //room
+    Route::get('/room/list', [App\Http\Controllers\RoomController::class, 'index'])->name('room.index');
+    Route::get('/room/add', [App\Http\Controllers\RoomController::class, 'add'])->name('room.add');
+    Route::post('/room/store', [App\Http\Controllers\RoomController::class, 'store'])->name('room.store');
+    Route::get('/room/{roomId}/edit', [App\Http\Controllers\RoomController::class, 'edit'])->name('room.edit');
+    Route::post('/room/update/{roomId}', [App\Http\Controllers\RoomController::class, 'update'])->name('room.update');
+    Route::get('/room/{roomId}/delete', [App\Http\Controllers\RoomController::class, 'delete'])->name('room.delete');
+
+    // customer
+    Route::get('/customer/list', [App\Http\Controllers\CustomerController::class, 'index'])->name('customer.index');
+    Route::get('/customer/add', [App\Http\Controllers\CustomerController::class, 'add'])->name('customer.add');
+    Route::post('/customer/store', [App\Http\Controllers\CustomerController::class, 'store'])->name('customer.store');
+    Route::get('/customer/{customerId}/edit', [App\Http\Controllers\CustomerController::class, 'edit'])->name('customer.edit');
+    Route::post('/customer/update/{customerId}', [App\Http\Controllers\CustomerController::class, 'update'])->name('customer.update');
+    Route::get('/customer/{customerId}/delete', [App\Http\Controllers\CustomerController::class, 'delete'])->name('customer.delete');   
+
+    // custome comment
+    Route::get('/customer-comment/list/{customerId}', [App\Http\Controllers\CustomerCommentController::class, 'index'])->name('customer_comment.index');
+    Route::get('/customer-comment/add/{customerId}', [App\Http\Controllers\CustomerCommentController::class, 'add'])->name('customer_comment.add');
+    Route::post('/customer-comment/store/{customerId}', [App\Http\Controllers\CustomerCommentController::class, 'store'])->name('customer_comment.store');
+    Route::get('/customer-comment/{customerCommentId}/edit', [App\Http\Controllers\CustomerCommentController::class, 'edit'])->name('customer_comment.edit');
+    Route::post('/customer-comment/update/{customerCommentId}', [App\Http\Controllers\CustomerCommentController::class, 'update'])->name('customer_comment.update');
+    Route::get('/customer-comment/{customerCommentId}/delete', [App\Http\Controllers\CustomerCommentController::class, 'delete'])->name('customer_comment.delete');
+});
 
 Route::fallback(function(){
     return redirect()->route('home');

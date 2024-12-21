@@ -1,9 +1,42 @@
 <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
     <li class="nav-item">
-        <a href="./generate/theme.html" class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}"> <i
+        <a href="{{ route('home') }}" class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}"> <i
                 class="nav-icon bi bi-palette"></i>
             <p>{{ __('Dashboard') }}</p>
         </a>
+    </li>
+    <li class="nav-item">
+        <a href="{{ route('customer.index') }}"
+            class="nav-link {{ request()->routeIs('customer.index') || request()->routeIs('customer.add') || request()->routeIs('customer.edit') ? 'active' : '' }}">
+            <i class="nav-icon bi bi-people"></i>
+            <p>{{ __('Customer') }}</p>
+        </a>
+    </li>
+    <li
+        class="nav-item {{ request()->routeIs('room_type.index') || request()->routeIs('room_type.add') || request()->routeIs('room_type.edit') || request()->routeIs('room.index') || request()->routeIs('room.add') || request()->routeIs('room.edit') ? 'menu-open' : '' }}">
+        <a href="#" class="nav-link">
+            <i class="nav-icon bi bi-door-closed"></i>
+            <p>
+                {{ __('Room Management') }}
+                <i class="nav-arrow bi bi-chevron-right"></i>
+            </p>
+        </a>
+        <ul class="nav nav-treeview">
+            <li class="nav-item">
+                <a href="{{ route('room_type.index') }}"
+                    class="nav-link {{ request()->routeIs('room_type.index') || request()->routeIs('room_type.add') || request()->routeIs('room_type.edit') ? 'active' : '' }}">
+                    <i class="nav-icon bi bi-circle"></i>
+                    <p>{{ __('Type') }}</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('room.index') }}"
+                    class="nav-link {{ request()->routeIs('room.index') || request()->routeIs('room.add') || request()->routeIs('room.edit') ? 'active' : '' }}">
+                    <i class="nav-icon bi bi-circle"></i>
+                    <p>{{ __('Room') }}</p>
+                </a>
+            </li>
+        </ul>
     </li>
     <li
         class="nav-item {{ request()->routeIs('company.index') || request()->routeIs('user.index') || request()->routeIs('exchange_rate.index') || request()->routeIs('payment_method.index') ? 'menu-open' : '' }}">
