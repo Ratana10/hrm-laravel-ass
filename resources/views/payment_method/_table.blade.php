@@ -53,5 +53,5 @@
             @endforeach
         </tbody>
     </table>
-    {{ $room_types->links('pagination::bootstrap-5') }}
+    {{ $payment_methods->links('pagination::bootstrap-5') }}
 </div>

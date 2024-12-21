@@ -47,5 +47,5 @@
             @endforeach
         </tbody>
     </table>
-    {{ $room_types->links('pagination::bootstrap-5') }}
+    {{ $rooms->links('pagination::bootstrap-5') }}
 </div>
