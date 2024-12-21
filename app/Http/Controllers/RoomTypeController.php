@@ -9,7 +9,7 @@ use Validator;
 class RoomTypeController extends Controller
 {
     public function index(){
-        $room_types = RoomType::paginate(10);
+        $room_types = RoomType::paginate(1);
         return view('room_types.index', compact('room_types'));
     }
     public function add(){

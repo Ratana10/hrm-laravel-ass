@@ -48,9 +48,6 @@
             @endforeach
         </tbody>
     </table>
-    <div class="row">
-        <div class="col-12">
-            {{ $users->links('pagination::bootstrap-4') }}
-        </div>
-    </div>
+    {{ $room_types->links('pagination::bootstrap-5') }}
+
 </div>
