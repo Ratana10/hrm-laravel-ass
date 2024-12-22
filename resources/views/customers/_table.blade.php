@@ -25,7 +25,7 @@
                     <td>{{ $customer->phone }}</td>
                     <td>
                         <a href="{{ route('customer_comment.index', $customer->id) }}">
-                            <i class="fa fa-user"></i>
+                            <i class="fas fa-comment-alt"></i>
                         </a>
                     </td>
                     <td>{{ $customer->note }}</td>

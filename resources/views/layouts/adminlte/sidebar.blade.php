@@ -7,7 +7,7 @@
     </li>
     <li class="nav-item">
         <a href="{{ route('customer.index') }}"
-            class="nav-link {{ request()->routeIs('customer.index') || request()->routeIs('customer.add') || request()->routeIs('customer.edit') ? 'active' : '' }}">
+            class="nav-link {{ request()->routeIs('customer.index') || request()->routeIs('customer.add') || request()->routeIs('customer.edit') || request()->routeIs('customer_comment.index') || request()->routeIs('customer_comment.add') || request()->routeIs('customer_comment.edit') ? 'active' : '' }}">
             <i class="nav-icon bi bi-people"></i>
             <p>{{ __('Customer') }}</p>
         </a>

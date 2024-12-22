@@ -1,4 +1,7 @@
 @extends('layouts.adminlte.master')
+@push('meta')
+    <title>{{ __('Customer') }}</title>
+@endpush
 @section('content')
     <div class="card">
         <div class="card-header">
