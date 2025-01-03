@@ -6,10 +6,17 @@
         </a>
     </li>
     <li class="nav-item">
+        <a href="{{ route('open_room.list_room') }}"
+            class="nav-link {{ request()->routeIs('open_room.list_room') || request()->routeIs('open_room.add') || request()->routeIs('open_room.edit') ? 'active' : '' }}">
+            <i class="nav-icon bi bi-door-open"></i>
+            <p>{{ __('Open Room') }}</p>
+        </a>
+    </li>
+    <li class="nav-item">
         <a href="{{ route('customer.index') }}"
             class="nav-link {{ request()->routeIs('customer.index') || request()->routeIs('customer.add') || request()->routeIs('customer.edit') || request()->routeIs('customer_comment.index') || request()->routeIs('customer_comment.add') || request()->routeIs('customer_comment.edit') ? 'active' : '' }}">
             <i class="nav-icon bi bi-people"></i>
-            <p>{{ __('Customer') }}</p>
+            <p>{{ __('Tenant Management') }}</p>
         </a>
     </li>
     <li

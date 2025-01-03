@@ -47,13 +47,16 @@ class LoginController extends Controller
     public function login(Request $r){
         if($r->isMethod('post')) {
             $credentials = User::where('email', $r->email)->first();
-            if(Hash::check($r->password, $credentials->password)) {
-                if (Auth::attempt(['email' => $r->email, 'password' => $r->password])) {
-                    return redirect()->route('home')->with('success', 'Login successfully');
+            if($credentials){
+                if(Hash::check($r->password, $credentials->password)) {
+                    if (Auth::attempt(['email' => $r->email, 'password' => $r->password])) {
+                        return redirect()->route('home')->with('success', 'Login successfully');
+                    }
                 }
+    
+                return redirect()->route('home');
             }
 
-            return redirect()->route('home');
         }
 
         return view('auth.login');

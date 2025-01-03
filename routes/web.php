@@ -72,6 +72,14 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/customer-comment/{customerCommentId}/edit', [App\Http\Controllers\CustomerCommentController::class, 'edit'])->name('customer_comment.edit');
     Route::post('/customer-comment/update/{customerCommentId}', [App\Http\Controllers\CustomerCommentController::class, 'update'])->name('customer_comment.update');
     Route::get('/customer-comment/{customerCommentId}/delete', [App\Http\Controllers\CustomerCommentController::class, 'delete'])->name('customer_comment.delete');
+
+    // open room
+    Route::get('/open-room/list-room', [App\Http\Controllers\OpenRoomController::class, 'list'])->name('open_room.list_room');
+    Route::get('/open-room/add/{room_id}', [App\Http\Controllers\OpenRoomController::class, 'add'])->name('open_room.add');
+    Route::post('/open-room/{room_id}/store', [App\Http\Controllers\OpenRoomController::class, 'store'])->name('open_room.store');
+    Route::get('/open-room/{openRoomId}/edit', [App\Http\Controllers\OpenRoomController::class, 'edit'])->name('open_room.edit');
+    Route::post('/open-room/update/{openRoomId}', [App\Http\Controllers\OpenRoomController::class, 'update'])->name('open_room.update');
+    Route::get('/open-room/{openRoomId}/delete', [App\Http\Controllers\OpenRoomController::class, 'delete'])->name('open_room.delete');
 });
 
 Route::fallback(function(){

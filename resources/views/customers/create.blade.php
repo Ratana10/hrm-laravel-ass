@@ -1,11 +1,11 @@
 @extends('layouts.adminlte.master')
 @push('meta')
-    <title>{{ __('Customer') }}</title>
+    <title>{{ __('Add Tenant') }}</title>
 @endpush
 @section('content')
     <div class="card">
         <div class="card-header">
-            <h2 class="mb-0 text-primary"><i class="fa fa-users"></i> {{ __('Add Customer') }}</h2>
+            <h2 class="mb-0 text-primary"><i class="fa fa-users"></i> {{ __('Add Tenant') }}</h2>
         </div>
         <form action="{{ route('customer.store') }}" method="POST" enctype="multipart/form-data">
             <div class="card-body">
