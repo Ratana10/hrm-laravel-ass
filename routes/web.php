@@ -80,6 +80,14 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/open-room/{openRoomId}/edit', [App\Http\Controllers\OpenRoomController::class, 'edit'])->name('open_room.edit');
     Route::post('/open-room/update/{openRoomId}', [App\Http\Controllers\OpenRoomController::class, 'update'])->name('open_room.update');
     Route::get('/open-room/{openRoomId}/delete', [App\Http\Controllers\OpenRoomController::class, 'delete'])->name('open_room.delete');
+
+    // invoice
+    Route::get('/invoice/list', [App\Http\Controllers\InvoiceController::class, 'index'])->name('invoice.index');
+    Route::get('/invoice/add', [App\Http\Controllers\InvoiceController::class, 'add'])->name('invoice.add');
+    Route::post('/invoice/store', [App\Http\Controllers\InvoiceController::class, 'store'])->name('invoice.store');
+    Route::get('/invoice/{invoiceId}/edit', [App\Http\Controllers\InvoiceController::class, 'edit'])->name('invoice.edit');
+    Route::post('/invoice/update/{invoiceId}', [App\Http\Controllers\InvoiceController::class, 'update'])->name('invoice.update');
+    Route::get('/invoice/{invoiceId}/delete', [App\Http\Controllers\InvoiceController::class, 'delete'])->name('invoice.delete');
 });
 
 Route::fallback(function(){
