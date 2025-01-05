@@ -4,7 +4,7 @@
             <th>{{ __('ID') }}</th>
             <th>{{ __('Date') }}</th>
             <th>{{ __('Contract ID') }}</th>
-            <th>{{ __('Customer') }}</th>
+            <th>{{ __('Tenant') }}</th>
             <th>{{ __('Room Price') }}</th>
             <th>{{ __('Electricity') }}</th>
             <th>{{ __('Water') }}</th>
