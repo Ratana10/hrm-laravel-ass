@@ -91,6 +91,10 @@ Route::group(['middleware' => 'auth'], function(){
 
     // payment
     Route::get('/payment/list/{invoice_id}', [App\Http\Controllers\PaymentController::class, 'index'])->name('invoice.payment.list');
+
+    // report 
+    Route::get('/report/income', [App\Http\Controllers\ReportController::class, 'income'])->name('report.income');
+    Route::get('/report/outstanding', [App\Http\Controllers\ReportController::class, 'outstanding'])->name('report.outstanding');
 });
 
 Route::fallback(function(){
