@@ -26,19 +26,19 @@ class InvoiceController extends Controller
     }
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'open_room_id' => 'required',
-            'exchange_rate_id' => 'required',
-        ]);
-        if ($validator->fails()) {
-            return redirect()->route('invoice.add')
-                ->withErrors($validator)
-                ->withInput();
-        }
-        $invoice = new Invoice([
-            'open_room_id' => $request->get('open_room_id'),
-            'exchange_rate_id' => $request->get('exchange_rate_id'),
-        ]);
+        // dd($request->all());
+        $invoice = new Invoice();
+        $invoice->open_room_id = $request->get('open_room_id');
+        $invoice->exchange_rate_id = $request->get('exchange_rate_id');
+        $invoice->date = $request->get('date');
+        $invoice->room_price = $request->get('room_price');
+        $invoice->number_e = $request->get('number_e');
+        $invoice->e_amount_per_kilometer = $request->get('e_amount_per_kilometer');
+        $invoice->e_amount = $request->get('e_amount');
+        $invoice->number_w = $request->get('number_w');
+        $invoice->w_amount_per_kilometer = $request->get('w_amount_per_kilometer');
+        $invoice->w_amount = $request->get('w_amount');
+        $invoice->total_amount = $request->get('total_amount');
         $invoice->save();
         return redirect()->route('invoice.index')
             ->with('success', 'Invoice created successfully.');

@@ -88,6 +88,9 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/invoice/{invoiceId}/edit', [App\Http\Controllers\InvoiceController::class, 'edit'])->name('invoice.edit');
     Route::post('/invoice/update/{invoiceId}', [App\Http\Controllers\InvoiceController::class, 'update'])->name('invoice.update');
     Route::get('/invoice/{invoiceId}/delete', [App\Http\Controllers\InvoiceController::class, 'delete'])->name('invoice.delete');
+
+    // payment
+    Route::get('/payment/list/{invoice_id}', [App\Http\Controllers\PaymentController::class, 'index'])->name('invoice.payment.list');
 });
 
 Route::fallback(function(){

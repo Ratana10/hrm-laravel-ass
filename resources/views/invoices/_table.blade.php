@@ -13,7 +13,7 @@
         </thead>
         <tbody>
             @foreach ($invoices as $x => $invoice)
-                @if ($customer_id != 'all')
+                @if ($customer_id && $customer_id != 'all')
                     @if ($invoice->openRoom->customer_id != $customer_id)
                         @continue
                     @endif
@@ -32,7 +32,14 @@
                     <td>{{ number_format($invoice->w_amount, 2) }}</td>
                     <td>{{ number_format($invoice->total_amount, 2) }}</td>
                     <td>
+                        <a href="{{ route('invoice.payment.list', $invoice->id) }}" class="btn btn-primary"><i
+                                class="fab fa-telegram"></i>
+                            Send to tenant via telegram</a>
+                        <a href="{{ route('invoice.payment.list', $invoice->id) }}" class="btn btn-warning"><i
+                                class="bi bi-receipt"></i>
+                            Payment</a>
                         <div class="btn-group">
+
                             <a href="{{ route('invoice.edit', $invoice->id) }}" class="btn btn-success"><i
                                     class="fa fa-pen"></i>
                                 {{ __('Edit') }}
