@@ -121,6 +121,41 @@
                             </div>
                         </div>
                     </div>
+                    {{-- fix data --}}
+                    <h2 class="px-3 mt-2 text-success"><i class="fa fa-users"></i> {{ __('Room Member') }} <button
+                            class="btn btn-info"><i class="fa fa-plus-circle"></i> {{ __('Add') }}</button></h2>
+                    <table class="table text-center table-sm table-borderd" style="vertical-align: middle">
+                        <thead>
+                            <tr>
+                                <th>{{ __('Action') }}</th>
+                                <th>{{ __('Name') }}</th>
+                                <th>{{ __('Note') }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-danger"><i class="fa fa-trash btn btn-danger"></i></td>
+                                <td><input type="text" class="form-control"></td>
+                                <td>
+                                    <input type="text" class="form-control">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-danger"><i class="fa fa-trash btn btn-danger"></i></td>
+                                <td><input type="text" class="form-control"></td>
+                                <td>
+                                    <input type="text" class="form-control">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-danger"><i class="fa fa-trash btn btn-danger"></i></td>
+                                <td><input type="text" class="form-control"></td>
+                                <td>
+                                    <input type="text" class="form-control">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                     <div class="col-12">
                         <div class="mb-3">
                             <label for="note">{{ __('Note') }}</label>
@@ -134,6 +169,8 @@
                 </div>
             </div>
         </form>
+
+
     </div>
     </div>
 @endsection
