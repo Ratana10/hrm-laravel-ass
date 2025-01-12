@@ -19,7 +19,8 @@
 
 <body class="layout-fixed sidebar-expand-lg bg-body-tertiary"> <!--begin::App Wrapper-->
     <div class="app-wrapper"> <!--begin::Header-->
-        <nav class="app-header navbar navbar-expand bg-body d-print-none"> <!--begin::Container-->
+        <nav class="app-header navbar navbar-expand bg-body d-print-none" style="z-index: 1000001;">
+            <!--begin::Container-->
             <div class="container-fluid"> <!--begin::Start Navbar Links-->
                 <ul class="navbar-nav">
                     <li class="nav-item"> <a class="nav-link" data-lte-toggle="sidebar" href="#" role="button">
@@ -85,7 +86,7 @@
                 </nav>
             </div> <!--end::Sidebar Wrapper-->
         </aside> <!--end::Sidebar--> <!--begin::App Main-->
-        <main class="app-main"> <!--begin::App Content Header-->
+        <main class="app-main" style="z-index: 1000000;"> <!--begin::App Content Header-->
             <div class="bg-transparent app-content d-print-block"> <!--begin::Container-->
                 <div class="py-3 container-fluid">
                     @include('customUI.alert')
