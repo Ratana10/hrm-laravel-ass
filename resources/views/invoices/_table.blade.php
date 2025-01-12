@@ -9,11 +9,13 @@
             <th>{{ __('Electricity') }}</th>
             <th>{{ __('Water') }}</th>
             <th>{{ __('Total') }}</th>
+            <th>{{ __('Total Paid') }}</th>
+            <th>{{ __('Balance Outstanding') }}</th>
             <th>{{ __('Action') }}</th>
         </thead>
         <tbody>
             @foreach ($invoices as $x => $invoice)
-                @if ($customer_id != 'all')
+                @if ($customer_id && $customer_id != 'all')
                     @if ($invoice->openRoom->customer_id != $customer_id)
                         @continue
                     @endif
@@ -31,7 +33,13 @@
                     <td>{{ number_format($invoice->e_amount, 2) }}</td>
                     <td>{{ number_format($invoice->w_amount, 2) }}</td>
                     <td>{{ number_format($invoice->total_amount, 2) }}</td>
+                    <td>{{ number_format($invoice->totalPayment->sum('amount'), 2) }}</td>
+                    <td
+                        class="{{ $invoice->total_amount - $invoice->totalPayment->sum('amount') > 0 ? 'text-danger' : '' }}">
+                        $ {{ number_format($invoice->total_amount - $invoice->totalPayment->sum('amount'), 2) }}</td>
                     <td>
+                        <a href="{{ route('payment.index', $invoice->id) }}" class="btn btn-dark"><i
+                                class="bi bi-cash"></i></a>
                         <div class="btn-group">
                             <a href="{{ route('invoice.edit', $invoice->id) }}" class="btn btn-success"><i
                                     class="fa fa-pen"></i>

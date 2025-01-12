@@ -88,6 +88,21 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/invoice/{invoiceId}/edit', [App\Http\Controllers\InvoiceController::class, 'edit'])->name('invoice.edit');
     Route::post('/invoice/update/{invoiceId}', [App\Http\Controllers\InvoiceController::class, 'update'])->name('invoice.update');
     Route::get('/invoice/{invoiceId}/delete', [App\Http\Controllers\InvoiceController::class, 'delete'])->name('invoice.delete');
+
+    // payment 
+    Route::get('/payment/list/{invoiceId}', [App\Http\Controllers\PaymentController::class, 'index'])->name('payment.index');
+    Route::get('/payment/add/{invoiceId}', [App\Http\Controllers\PaymentController::class, 'add'])->name('payment.add');
+    Route::post('/payment/store/{invoiceId}', [App\Http\Controllers\PaymentController::class, 'store'])->name('payment.store');
+
+    // your logic ....
+    Route::get('/payment/{paymentId}/edit', [App\Http\Controllers\PaymentController::class, 'edit'])->name('payment.edit');
+    Route::post('/payment/update/{paymentId}', [App\Http\Controllers\PaymentController::class, 'update'])->name('payment.update');
+    Route::get('/payment/{paymentId}/delete', [App\Http\Controllers\PaymentController::class, 'delete'])->name('payment.delete');
+
+    // report
+
+    Route::get('/report/payment', [App\Http\Controllers\ReportController::class, 'payment'])->name('report.payment');
+    Route::get('/report/outsstanding', [App\Http\Controllers\ReportController::class, 'outstanding'])->name('report.outstanding');
 });
 
 Route::fallback(function(){

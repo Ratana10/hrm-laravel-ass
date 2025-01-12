@@ -53,6 +53,32 @@
         </ul>
     </li>
     <li
+        class="nav-item {{ request()->routeIs('report.payment') || request()->routeIs('report.outstanding') ? 'menu-open' : '' }}">
+        <a href="#" class="nav-link">
+            <i class="nav-icon bi bi-pie-chart"></i>
+            <p>
+                {{ __('Report Management') }}
+                <i class="nav-arrow bi bi-chevron-right"></i>
+            </p>
+        </a>
+        <ul class="nav nav-treeview">
+            <li class="nav-item">
+                <a href="{{ route('report.payment') }}"
+                    class="nav-link {{ request()->routeIs('report.payment') ? 'active' : '' }}">
+                    <i class="nav-icon bi bi-circle"></i>
+                    <p>{{ __('Payment') }}</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('report.outstanding') }}"
+                    class="nav-link {{ request()->routeIs('report.outstanding') ? 'active' : '' }}">
+                    <i class="nav-icon bi bi-circle"></i>
+                    <p>{{ __('Outstanding') }}</p>
+                </a>
+            </li>
+        </ul>
+    </li>
+    <li
         class="nav-item {{ request()->routeIs('company.index') || request()->routeIs('user.index') || request()->routeIs('exchange_rate.index') || request()->routeIs('payment_method.index') ? 'menu-open' : '' }}">
         <a href="#" class="nav-link">
             <i class="nav-icon bi bi-speedometer"></i>

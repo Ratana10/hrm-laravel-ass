@@ -173,17 +173,11 @@
             }
 
             const totalAmount = +eAmount + +wAmount + +roomPrice;
-            document.querySelector('input[name="total_amount"]').value = totalAmount.toLocaleString('USD', {
-                style: 'currency',
-                currency: 'USD',
-            });
+            document.querySelector('input[name="total_amount"]').value = Number(totalAmount).toFixed(2);
 
             const exchangeRate = document.querySelector('input[name="exchange_rate_id"]').value;
             const totalKhr = totalAmount * exchangeRate;
-            document.querySelector('#total_khr').value = (totalKhr).toLocaleString('KHR', {
-                style: 'currency',
-                currency: 'KHR',
-            });
+            document.querySelector('#total_khr').value = Number(totalKhr).toFixed(2);
         }
 
         function reCalculateTotalPrice() {
