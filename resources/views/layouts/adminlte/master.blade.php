@@ -85,7 +85,7 @@
                 </nav>
             </div> <!--end::Sidebar Wrapper-->
         </aside> <!--end::Sidebar--> <!--begin::App Main-->
-        <main class="app-main" style="z-index: 1000000;"> <!--begin::App Content Header-->
+        <main class="app-main"> <!--begin::App Content Header-->
             <div class="bg-transparent app-content d-print-block"> <!--begin::Container-->
                 <div class="py-3 container-fluid">
                     @include('customUI.alert')
