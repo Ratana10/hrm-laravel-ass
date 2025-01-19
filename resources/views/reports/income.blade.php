@@ -3,8 +3,12 @@
     <div class="card">
         <div class="card-header position-relative">
             <h3 class="card-title">Income Report</h3>
-            <button class="position-absolute btn btn-success" style="top: 7px; right:10px;"><i class="fa fa-download"></i>
+            <button type="button" class="position-absolute btn btn-success" style="top: 7px; right:10px;"><i
+                    class="fa fa-download"></i>
                 {{ __('Export') }}</button>
+            <button onclick="window.print()" type="button" class="position-absolute btn btn-dark"
+                style="top: 7px; right:105px;"><i class="fa fa-print"></i>
+                {{ __('Print') }}</button>
         </div>
         <div class="card-body">
             <table class="table table-hover">
