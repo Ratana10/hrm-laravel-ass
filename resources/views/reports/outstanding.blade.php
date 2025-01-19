@@ -1,8 +1,10 @@
 @extends('layouts.adminlte.master')
 @section('content')
     <div class="card">
-        <div class="card-header">
+        <div class="card-header position-relative">
             <h3 class="card-title">Outstanding Report</h3>
+            <button class="position-absolute btn btn-success" style="top: 7px; right:10px;"><i class="fa fa-download"></i>
+                {{ __('Export') }}</button>
         </div>
         <div class="card-body">
             <table class="table table-hover">
