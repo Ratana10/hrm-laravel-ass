@@ -38,6 +38,7 @@
                         class="{{ $invoice->total_amount - $invoice->totalPayment->sum('amount') > 0 ? 'text-danger' : '' }}">
                         $ {{ number_format($invoice->total_amount - $invoice->totalPayment->sum('amount'), 2) }}</td>
                     <td>
+                        <a href="#" class="btn btn-primary"><i class="fab fa-telegram-plane"></i> Sent to Tenent</a>
                         <a href="{{ route('payment.index', $invoice->id) }}" class="btn btn-dark"><i
                                 class="bi bi-cash"></i></a>
                         <div class="btn-group">
