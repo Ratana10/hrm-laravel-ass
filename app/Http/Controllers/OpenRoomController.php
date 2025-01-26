@@ -8,6 +8,7 @@ use App\Models\RoomType;
 use Validator;
 use App\Models\OpenRoom;
 use App\Models\Customer;
+use App\Models\Invoice;
 use App\Models\OpenRoomMember;
 
 class OpenRoomController extends Controller
@@ -71,5 +72,14 @@ class OpenRoomController extends Controller
     {
         $openRoom = OpenRoom::find($id)->delete();
         return redirect()->route('open_room.list_room')->with('success', 'Delete successfully');
+    }
+
+    public function invoices($openRoomId)
+    {
+        $invoices = Invoice::with(['openRoom.customer', 'exchangeRate'])
+        ->where('open_room_id', $openRoomId)
+        ->get();
+
+    return view('open_rooms.invoices', compact('invoices', 'openRoomId'));
     }
 }

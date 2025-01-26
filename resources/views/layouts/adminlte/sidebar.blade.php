@@ -53,20 +53,20 @@
         </ul>
     </li>
     <li
-        class="nav-item {{ request()->routeIs('report.income') || request()->routeIs('report.outstanding') ? 'menu-open' : '' }}">
+        class="nav-item {{ request()->routeIs('report.payment') || request()->routeIs('report.outstanding') ? 'menu-open' : '' }}">
         <a href="#" class="nav-link">
-            <i class="nav-icon bi bi-file-earmark-text"></i>
+            <i class="nav-icon bi bi-pie-chart"></i>
             <p>
-                {{ __('Report') }}
+                {{ __('Report Management') }}
                 <i class="nav-arrow bi bi-chevron-right"></i>
             </p>
         </a>
         <ul class="nav nav-treeview">
             <li class="nav-item">
-                <a href="{{ route('report.income') }}"
-                    class="nav-link {{ request()->routeIs('report.income') ? 'active' : '' }}">
+                <a href="{{ route('report.payment') }}"
+                    class="nav-link {{ request()->routeIs('report.payment') ? 'active' : '' }}">
                     <i class="nav-icon bi bi-circle"></i>
-                    <p>{{ __('Income') }}</p>
+                    <p>{{ __('Payment') }}</p>
                 </a>
             </li>
             <li class="nav-item">

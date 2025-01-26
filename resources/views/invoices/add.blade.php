@@ -18,6 +18,7 @@
                         <label for="exchange_rate">{{ __('Exchange Rate') }} <span class="text-danger">*</span></label>
                         <input type="text" class="form-control bg-secondary-subtle" value="{{ $exchangeRate->khr }}"
                             name="exchange_rate_id" readonly>
+                              <input type="hidden" name="exchange_rate_id" value="{{ $exchangeRate->id }}">
                     </div>
                     <div class="mb-3 col-md-3">
                         <div class="form-group">
@@ -177,7 +178,10 @@
 
             const exchangeRate = document.querySelector('input[name="exchange_rate_id"]').value;
             const totalKhr = totalAmount * exchangeRate;
-            document.querySelector('#total_khr').value = (totalKhr).toFixed(2);
+            document.querySelector('#total_khr').value = (totalKhr).toLocaleString('KHR', {
+                style: 'currency',
+                currency: 'KHR',
+            });
         }
 
         function reCalculateTotalPrice() {

@@ -19,7 +19,8 @@
 
 <body class="layout-fixed sidebar-expand-lg bg-body-tertiary"> <!--begin::App Wrapper-->
     <div class="app-wrapper"> <!--begin::Header-->
-        <nav class="app-header navbar navbar-expand bg-body"> <!--begin::Container-->
+        <nav class="app-header navbar navbar-expand bg-body d-print-none" style="z-index: 1000001;">
+            <!--begin::Container-->
             <div class="container-fluid"> <!--begin::Start Navbar Links-->
                 <ul class="navbar-nav">
                     <li class="nav-item"> <a class="nav-link" data-lte-toggle="sidebar" href="#" role="button">
@@ -70,7 +71,8 @@
         @php
             $coM = App\Models\Company::find(1);
         @endphp
-        <aside class="shadow app-sidebar bg-body-secondary" data-bs-theme="dark"> <!--begin::Sidebar Brand-->
+        <aside class="shadow app-sidebar bg-body-secondary d-print-none" data-bs-theme="dark">
+            <!--begin::Sidebar Brand-->
             <div class="sidebar-brand"> <!--begin::Brand Link--> <a href="./index.html" class="brand-link">
                     <!--begin::Brand Image--> <img src="{{ asset($coM->photo) }}" alt="AdminLTE Logo"
                         class="shadow opacity-75 brand-image rounded-circle">
@@ -84,8 +86,8 @@
                 </nav>
             </div> <!--end::Sidebar Wrapper-->
         </aside> <!--end::Sidebar--> <!--begin::App Main-->
-        <main class="app-main"> <!--begin::App Content Header-->
-            <div class="app-content"> <!--begin::Container-->
+        <main class="app-main" style="z-index: 1000000;"> <!--begin::App Content Header-->
+            <div class="bg-transparent app-content d-print-block"> <!--begin::Container-->
                 <div class="py-3 container-fluid">
                     @include('customUI.alert')
                     @yield('content')

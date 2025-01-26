@@ -96,7 +96,7 @@
                                     <a href="{{ route('open_room.add', $room->id) }}"
                                         class="btn btn-primary w-100">Open</a>
                                 @else
-                                    <a href="#" class="btn btn-warning"> <i class="fa fa-eye"></i>
+                                    <a href="{{ route('open_room.invoices', $room->openRoom->id) }}" class="btn btn-warning"> <i class="fa fa-eye"></i>
                                         {{ __('Invoice') }}</a>
                                     <a href="{{ route('open_room.edit', $room->openRoom->id) }}" class="btn btn-success"><i
                                             class="fa fa-pen"></i> Edit</a>

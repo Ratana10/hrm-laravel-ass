@@ -14,4 +14,7 @@ class Invoice extends Model
     {
         return $this->belongsTo('App\Models\ExchangeRate', 'exchange_rate_id', 'id');
     }
+    public function totalPayment(){
+        return $this->hasMany('App\Models\Payment', 'invoice_id', 'id');
+    }
 }
