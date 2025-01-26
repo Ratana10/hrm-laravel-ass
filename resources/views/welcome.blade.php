@@ -11,7 +11,7 @@
                     <span class="info-box-icon bg-info"><i class="text-white fa fa-users"></i></span>
                     <div class="info-box-content">
                         <span class="info-box-text">Total Tenants</span>
-                        <span class="info-box-number">1,410</span>
+                        <span class="info-box-number">{{ $totalTenants }}</span>
                     </div>
                 </div>
             </div>
@@ -20,7 +20,7 @@
                     <span class="info-box-icon bg-success"><i class="text-white fa fa-home"></i></span>
                     <div class="info-box-content">
                         <span class="info-box-text">Total Room Available</span>
-                        <span class="info-box-number">1,410</span>
+                        <span class="info-box-number">{{ $availableRooms }}</span>
                     </div>
                 </div>
             </div>
@@ -29,7 +29,7 @@
                     <span class="info-box-icon bg-warning"><i class="text-white bi bi-door-open"></i></span>
                     <div class="info-box-content">
                         <span class="info-box-text">Total Room Need to Pay</span>
-                        <span class="info-box-number">1,410</span>
+                        <span class="info-box-number">{{ $totalRooms }}</span>
                     </div>
                 </div>
             </div>
@@ -63,9 +63,8 @@
 
     <script>
         var options3 = {
-            series: [44, 55, 13, 43, 54],
+            series: [{{ $totalTenants }},   {{ $availableRooms }},   {{ $totalRooms }}, 43],
             labels: ['Total Tenants', 'Total Room Available', 'Total Room Need to Pay', 'Total Outstanding Balance',
-                'Total Room Need to Pay And Total Outstanding Balance'
             ],
             chart: {
                 height: 350,
@@ -104,7 +103,7 @@
         var options4 = {
             series: [{
                 name: 'Total',
-                data: [55, 13]
+                data: [{{ $availableRooms }}, {{ $totalRooms }}]
             }],
             chart: {
                 height: 350,
@@ -135,7 +134,7 @@
         var options5 = {
             series: [{
                 name: 'Income',
-                data: [10000, 20000, 30000, 40000, 50000, 60000, 70000, 80000, 90000, 100000, 110000, 120000]
+                data: {!! json_encode($chartIncomeData) !!}
             }],
             chart: {
                 height: 350,

@@ -13,10 +13,10 @@ use PDF;
 
 class PaymentController extends Controller
 {
-    public function index(Request $r, $invoice_id){
-        $payments = Payment::where('invoice_id', $invoice_id)->get();
-        $invoice = Invoice::find($invoice_id);
-        return view('payments.index', compact('payments', 'invoice_id', 'invoice'));
+    public function index($invoiceId){
+        $invoice = Invoice::with('openRoom.customer')->findOrFail($invoiceId);
+        $payments = Payment::where('invoice_id', $invoiceId)->get();
+        return view('payments.index',  compact('invoice', 'payments'));
     }
     public function add(Request $r, $invoice_id){
         $payment_methods = PaymentMethod::all();
@@ -31,7 +31,7 @@ class PaymentController extends Controller
         $payment->amount = $request->get('amount');
         $payment->exchange_rate_id = $request->get('exchange_rate_id');
         $payment->save();
-        return redirect()->route('payment.index', $invoice_id)->with('success', 'Payment added successfully.');
+        return redirect()->route('invoice.index', $invoice_id)->with('success', 'Payment added successfully.');
     }
 
     public function exportPdf(){

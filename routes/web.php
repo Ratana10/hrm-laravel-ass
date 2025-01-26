@@ -10,9 +10,15 @@ Route::get('/login', [App\Http\Controllers\Auth\LoginController::class, 'login']
 Route::post('/login-form', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('login_post');
 
 Route::group(['middleware' => 'auth'], function(){
-    Route::get('/', function () {
-        return view('welcome');
-    })->name('home');
+    // Route::get('/', function () {
+    //     return view('welcome');
+    // })->name('home');
+
+    Route::get('/', [App\Http\Controllers\DashboardController::class, 'index'])->name('home');
+
+    // Route::get('/', function () {
+    //     return view('welcome');
+    // })->name('home');
 
     Route::get('/switch-lang/{lang}', [LanguageController::class,'switchLang'])->name('lang');
 
@@ -100,6 +106,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/payment/{paymentId}/edit', [App\Http\Controllers\PaymentController::class, 'edit'])->name('payment.edit');
     Route::post('/payment/update/{paymentId}', [App\Http\Controllers\PaymentController::class, 'update'])->name('payment.update');
     Route::get('/payment/{paymentId}/delete', [App\Http\Controllers\PaymentController::class, 'delete'])->name('payment.delete');
+    Route::get('/payment/{invoiceId}', [App\Http\Controllers\PaymentController::class, 'index'])->name('payment.index');
     Route::get('/payments/pdf', [App\Http\Controllers\PaymentController::class, 'exportPdf'])->name('payments.pdf');
     Route::get('/payments/excel', [App\Http\Controllers\PaymentController::class, 'exportExcel'])->name('payments.excel');
 
@@ -108,6 +115,7 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::get('/report/payment', [App\Http\Controllers\ReportController::class, 'payment'])->name('report.payment');
     Route::get('/report/outstanding', [App\Http\Controllers\ReportController::class, 'outstanding'])->name('report.outstanding');
+
 });
 
 Route::fallback(function(){

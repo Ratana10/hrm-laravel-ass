@@ -5,6 +5,11 @@
             <h2 class="mb-0 text-primary"><i class="fa fa-users"></i> {{ __('Add Payment') }}</h2>
         </div>
         <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center">
+                <a href="{{ route('payment.index', $invoice_id) }}" class="btn btn-secondary">
+                    <i class="fa fa-arrow-left"></i> Back
+                </a>
+            </div>
             <div class="row">
                 <div class="col-12">
                     <form action="{{ route('payment.store', $invoice_id) }}" method="POST">

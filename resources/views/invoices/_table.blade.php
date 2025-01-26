@@ -30,14 +30,13 @@
                     <td>{{ number_format($invoice->w_amount, 2) }}</td>
                     <td>{{ number_format($invoice->total_amount, 2) }}</td>
                     <td>
-                        <a href="" class="btn btn-primary"><i
-                                class="fab fa-telegram"></i>
-                            Send to tenant via telegram</a>
-                        <a href="{{ route('payment.add', $invoice->id) }}" class="btn btn-warning"><i
-                                class="bi bi-receipt"></i>
-                            Payment</a>
-                        <div class="btn-group">
 
+                        <div class="btn-group">
+                            <a href="" class="btn btn-primary"><i class="fab fa-telegram"></i>
+                                telegram</a>
+                            <a href="{{ route('payment.index', $invoice->id) }}" class="btn btn-warning"><i
+                                    class="bi bi-receipt"></i>
+                                Payment</a>
                             <a href="{{ route('invoice.edit', $invoice->id) }}" class="btn btn-success"><i
                                     class="fa fa-pen"></i>
                                 {{ __('Edit') }}
