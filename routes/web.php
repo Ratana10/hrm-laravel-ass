@@ -101,6 +101,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/payment/update/{paymentId}', [App\Http\Controllers\PaymentController::class, 'update'])->name('payment.update');
     Route::get('/payment/{paymentId}/delete', [App\Http\Controllers\PaymentController::class, 'delete'])->name('payment.delete');
     Route::get('/payments/pdf', [App\Http\Controllers\PaymentController::class, 'exportPdf'])->name('payments.pdf');
+    Route::get('/payments/excel', [App\Http\Controllers\PaymentController::class, 'exportExcel'])->name('payments.excel');
+
 
     // report
 

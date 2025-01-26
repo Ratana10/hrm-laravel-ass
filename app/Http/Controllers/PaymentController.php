@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\PaymentExport;
 use Illuminate\Http\Request;
 use App\Models\PaymentMethod;
 use App\Models\Payment;
 use App\Models\ExchangeRate;
 use App\Models\Invoice;
+use Maatwebsite\Excel\Facades\Excel;
 use PDF;
 
 class PaymentController extends Controller
@@ -38,5 +40,10 @@ class PaymentController extends Controller
         $pdf = PDF::loadView('payments.pdf', compact('payments'))->setPaper('a4', 'portrait');;
 
         return $pdf->stream('Payment_Report.pdf');
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new PaymentExport, 'Payment_Report.xlsx');
     }
 }

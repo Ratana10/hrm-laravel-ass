@@ -1,14 +1,33 @@
 @extends('layouts.adminlte.master')
 @section('content')
 <div class="card">
-    <div class="card-header position-relative">
-        <h3 class="card-title">Payment Report</h3>
-        <button type="button" class="position-absolute btn btn-success" style="top: 7px; right:10px;"><i
-                class="fa fa-download"></i>
-            {{ __('Export') }}</button>
-        <a href="{{ route('payments.pdf') }}" target="_blank" class="position-absolute btn btn-dark"
-            style="top: 7px; right:105px;"><i class="fa fa-print"></i>
-            {{ __('Print') }}</a>
+    <div class="card-header">
+        <div class="d-flex justify-content-between align-items-center">
+            <h3 class="card-title">Payment Report</h3>
+            <div class="d-flex align-items-center gap-2">
+                <!-- Date Filter Form -->
+                <form method="GET" action="{{ route('report.payment') }}" class="d-flex align-items-center">
+                    <input type="date" name="start_date" value="{{ $start_date }}" class="form-control form-control-sm me-2" required>
+                    <input type="date" name="end_date" value="{{ $end_date }}" class="form-control form-control-sm me-2" required>
+                    <button type="submit" class="btn btn-primary btn-sm">
+                        <i class="fa fa-filter"></i> 
+                    </button>
+                </form>
+
+                 <!-- Clear Filter Button -->
+                <a href="{{ route('report.payment') }}" class="btn btn-secondary btn-sm">
+                    <i class="fa fa-times-circle"></i> {{ __('Clear Filter') }}
+                </a>
+
+                <!-- Export and Print Buttons -->
+                <a href="{{ route('payments.pdf') }}" target="_blank" class="btn btn-dark btn-sm">
+                    <i class="fa fa-print"></i> {{ __('Print') }}
+                </a>
+                <a href="{{ route('payments.excel') }}" class="btn btn-success btn-sm">
+                    <i class="fa fa-download"></i> {{ __('Export') }}
+                </a>
+            </div>
+        </div>
     </div>
     <div class="card-body">
         <table class="table table-bordered table-hover">
