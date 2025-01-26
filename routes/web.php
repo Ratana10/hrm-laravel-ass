@@ -100,11 +100,12 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/payment/{paymentId}/edit', [App\Http\Controllers\PaymentController::class, 'edit'])->name('payment.edit');
     Route::post('/payment/update/{paymentId}', [App\Http\Controllers\PaymentController::class, 'update'])->name('payment.update');
     Route::get('/payment/{paymentId}/delete', [App\Http\Controllers\PaymentController::class, 'delete'])->name('payment.delete');
+    Route::get('/payments/pdf', [App\Http\Controllers\PaymentController::class, 'exportPdf'])->name('payments.pdf');
 
     // report
 
     Route::get('/report/payment', [App\Http\Controllers\ReportController::class, 'payment'])->name('report.payment');
-    Route::get('/report/outsstanding', [App\Http\Controllers\ReportController::class, 'outstanding'])->name('report.outstanding');
+    Route::get('/report/outstanding', [App\Http\Controllers\ReportController::class, 'outstanding'])->name('report.outstanding');
 });
 
 Route::fallback(function(){

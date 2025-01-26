@@ -33,7 +33,7 @@
                         <a href="" class="btn btn-primary"><i
                                 class="fab fa-telegram"></i>
                             Send to tenant via telegram</a>
-                        <a href="" class="btn btn-warning"><i
+                        <a href="{{ route('payment.add', $invoice->id) }}" class="btn btn-warning"><i
                                 class="bi bi-receipt"></i>
                             Payment</a>
                         <div class="btn-group">

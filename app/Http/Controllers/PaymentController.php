@@ -7,6 +7,7 @@ use App\Models\PaymentMethod;
 use App\Models\Payment;
 use App\Models\ExchangeRate;
 use App\Models\Invoice;
+use PDF;
 
 class PaymentController extends Controller
 {
@@ -29,5 +30,13 @@ class PaymentController extends Controller
         $payment->exchange_rate_id = $request->get('exchange_rate_id');
         $payment->save();
         return redirect()->route('payment.index', $invoice_id)->with('success', 'Payment added successfully.');
+    }
+
+    public function exportPdf(){
+        $payments = Payment::all();
+
+        $pdf = PDF::loadView('payments.pdf', compact('payments'))->setPaper('a4', 'portrait');;
+
+        return $pdf->stream('Payment_Report.pdf');
     }
 }
