@@ -96,6 +96,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/invoice/{invoiceId}/edit', [App\Http\Controllers\InvoiceController::class, 'edit'])->name('invoice.edit');
     Route::post('/invoice/update/{invoiceId}', [App\Http\Controllers\InvoiceController::class, 'update'])->name('invoice.update');
     Route::get('/invoice/{invoiceId}/delete', [App\Http\Controllers\InvoiceController::class, 'delete'])->name('invoice.delete');
+    Route::get('/invoice/{invoiceId}/send-telegram', [App\Http\Controllers\InvoiceController::class, 'sendTelegramMessage']) ->name('invoice.sendTelegram');
 
     // payment 
     Route::get('/payment/list/{invoiceId}', [App\Http\Controllers\PaymentController::class, 'index'])->name('payment.index');
@@ -112,9 +113,12 @@ Route::group(['middleware' => 'auth'], function(){
 
 
     // report
-
     Route::get('/report/payment', [App\Http\Controllers\ReportController::class, 'payment'])->name('report.payment');
     Route::get('/report/outstanding', [App\Http\Controllers\ReportController::class, 'outstanding'])->name('report.outstanding');
+
+    // Telegram
+    Route::post('/telegram/webhook', [App\Http\Controllers\TelegramController::class, 'handle']);
+
 
 });
 

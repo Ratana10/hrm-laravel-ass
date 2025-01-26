@@ -32,7 +32,7 @@
                     <td>
 
                         <div class="btn-group">
-                            <a href="" class="btn btn-primary"><i class="fab fa-telegram"></i>
+                            <a href="{{ route('invoice.sendTelegram', $invoice->id) }}" class="btn btn-primary"><i class="fab fa-telegram"></i>
                                 telegram</a>
                             <a href="{{ route('payment.index', $invoice->id) }}" class="btn btn-warning"><i
                                     class="bi bi-receipt"></i>
