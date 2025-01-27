@@ -12,19 +12,19 @@ use Validator;
 
 class InvoiceController extends Controller
 {
-   
+
 
     public function index(Request $r)
     {
         $invoices = Invoice::paginate(30);
         $customers = Customer::all();
         $customer_id = $r->get('customer_id');
-        return view('invoices.index', compact('invoices', 'customers','customer_id'));
+        return view('invoices.index', compact('invoices', 'customers', 'customer_id'));
     }
     public function add()
     {
         $openRooms = OpenRoom::all();
-        $exchangeRate = ExchangeRate::where('is_current',1)->first();
+        $exchangeRate = ExchangeRate::where('is_current', 1)->first();
         return view('invoices.add', compact('openRooms', 'exchangeRate'));
     }
     public function store(Request $request)
@@ -50,11 +50,11 @@ class InvoiceController extends Controller
     public function edit($invoiceId)
     {
         $invoice = Invoice::find($invoiceId);
-        
+
         $openRooms = OpenRoom::all();
 
         $exchangeRate = ExchangeRate::findOrFail($invoice->exchange_rate_id);
-     
+
         return view('invoices.edit', compact('invoice', 'openRooms', 'exchangeRate'));
     }
     public function update(Request $request, $invoiceId)
@@ -91,7 +91,6 @@ class InvoiceController extends Controller
         $invoice->save();
 
         return redirect()->route('invoice.index')->with('success', 'Invoice updated successfully!');
-
     }
     public function delete($invoiceId)
     {
@@ -99,48 +98,50 @@ class InvoiceController extends Controller
         $invoice->delete();
         return redirect()->route('invoice.index')
             ->with('success', 'Invoice deleted successfully.');
-    }   
+    }
 
-    public function sendTelegramMessage($invoiceId){
+    public function sendTelegramMessage($invoiceId)
+    {
         $invoice = Invoice::with(['openRoom.customer', 'exchangeRate'])->findOrFail($invoiceId);
 
         $openRoom = $invoice->openRoom;
         $customer = $openRoom ? $openRoom->customer : null; // Retrieve the customer
         $room = $openRoom ? $openRoom->room : null; // Retrieve the room
-    
+
         $roomCode = $room ? $room->code : 'N/A';
         $telegramChatId = $customer ? $customer->telegram_chat_id : null;
-    
+
+        // Retrieve the previous invoice
         $previousInvoice = Invoice::where('open_room_id', $invoice->open_room_id)
-        ->where('id', '<', $invoice->id)
-        ->orderBy('id', 'desc')
-        ->first();
+            ->where('id', '<', $invoice->id)
+            ->orderBy('id', 'desc')
+            ->first();
 
-        Log::info("openRoom", [$openRoom]);
+        // Fallback to open_room values if no previous invoice exists
+        $electric_prev_balance = $previousInvoice
+            ? $previousInvoice->number_e
+            : ($openRoom ? $openRoom->electric_meter : 0);
+        $water_prev_balance = $previousInvoice
+            ? $previousInvoice->number_w
+            : ($openRoom ? $openRoom->water_meter : 0);
 
-
-        if (!$customer->telegram_chat_id) {
+        // Ensure the customer has a Telegram chat ID
+        if (!$telegramChatId) {
             return back()->with('error', 'Customer does not have a Telegram chat ID set.');
         }
-    
 
-        $electric_prev_balance = $previousInvoice ? $previousInvoice->number_e : 0;
-        $water_prev_balance = $previousInvoice ? $previousInvoice->number_w : 0;
-    
+        // Calculate current balances and total consumption
         $electric_current_balance = $invoice->number_e;
         $electric_price_per_unit = $invoice->e_amount_per_kilometer;
-    
-        // Calculate total electric usage
         $total_electric = $electric_current_balance - $electric_prev_balance;
         $total_electric_price = $total_electric * $electric_price_per_unit;
-    
+
         $water_current_balance = $invoice->number_w;
         $water_price_per_unit = $invoice->w_amount_per_kilometer;
-    
-        // Calculate total water usage
         $total_water = $water_current_balance - $water_prev_balance;
         $total_water_price = $total_water * $water_price_per_unit;
-    
+
+        // Calculate total amount in USD and KHR
         $total_amount = $invoice->total_amount;
         $exchange_rate = $invoice->exchangeRate->khr ?? 1;
         $total_amount_khr = $total_amount * $exchange_rate;
@@ -157,22 +158,21 @@ class InvoiceController extends Controller
         $message .= "- Total Electric: {$total_electric}\n";
         $message .= "- Price per Unit: `$ {$electric_price_per_unit}\n";
         $message .= "- Total Electric Price: $ {$total_electric_price}\n\n";
-    
+
         $message .= "*Water Consumption:*\n";
         $message .= "- Previous Balance: {$water_prev_balance}\n";
         $message .= "- Current Balance: {$water_current_balance}\n";
         $message .= "- Total Water: {$total_water} m3\n";
         $message .= "- Price per Unit: $ {$water_price_per_unit}\n";
         $message .= "- Total Water Price: $ {$total_water_price}\n\n";
-    
+
         $message .= "*Total Amount (USD):* $ {$total_amount}\n";
         $message .= "*Total Amount (KHR):* ៛ {$total_amount_khr}\n\n";
 
         // $tenant->telegram_chat_id;
 
-       app(TelegramController::class)->sendMessage($telegramChatId, $message);
+        app(TelegramController::class)->sendMessage($telegramChatId, $message);
 
         return back()->with('success', 'Message sent to the tenant via Telegram!');
-   
     }
 }

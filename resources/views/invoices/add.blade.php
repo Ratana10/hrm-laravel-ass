@@ -18,7 +18,7 @@
                         <label for="exchange_rate">{{ __('Exchange Rate') }} <span class="text-danger">*</span></label>
                         <input type="text" class="form-control bg-secondary-subtle" value="{{ $exchangeRate->khr }}"
                             name="exchange_rate_id" readonly>
-                              <input type="hidden" name="exchange_rate_id" value="{{ $exchangeRate->id }}">
+                        <input type="hidden" name="exchange_rate_id" value="{{ $exchangeRate->id }}">
                     </div>
                     <div class="mb-3 col-md-3">
                         <div class="form-group">
@@ -155,37 +155,70 @@
         }
 
         function calculateTotalPrice(event, type) {
-            const eAmountPerKilometer = document.querySelector('input[name="e_amount_per_kilometer"]').value;
-            const wAmountPerKilometer = document.querySelector('input[name="w_amount_per_kilometer"]').value;
-            const oldEBalance = document.querySelector('#old_e_balance').value;
-            const oldWBalance = document.querySelector('#old_w_balance').value;
-            const newEBalance = document.querySelector('input[name="number_e"]').value;
-            const newWBalance = document.querySelector('input[name="number_w"]').value;
-            const roomPrice = document.querySelector('input[name="room_price"]').value;
+            // const eAmountPerKilometer = document.querySelector('input[name="e_amount_per_kilometer"]').value;
+            // const wAmountPerKilometer = document.querySelector('input[name="w_amount_per_kilometer"]').value;
+            // const oldEBalance = document.querySelector('#old_e_balance').value;
+            // const oldWBalance = document.querySelector('#old_w_balance').value;
+            // const newEBalance = document.querySelector('input[name="number_e"]').value;
+            // const newWBalance = document.querySelector('input[name="number_w"]').value;
+            // const roomPrice = document.querySelector('input[name="room_price"]').value;
 
-            let eAmount = 0;
-            let wAmount = 0;
+            // let eAmount = 0;
+            // let wAmount = 0;
+            // if (type === 'e') {
+            //     eAmount = eAmountPerKilometer * (newEBalance - oldEBalance);
+            //     document.querySelector('input[name="e_amount"]').value = eAmount;
+            // } else if (type === 'w') {
+            //     wAmount = wAmountPerKilometer * (newWBalance - oldWBalance);
+            //     document.querySelector('input[name="w_amount"]').value = wAmount;
+            // }
+
+            // const totalAmount = +eAmount + +wAmount + +roomPrice;
+            // document.querySelector('input[name="total_amount"]').value = Number(totalAmount).toFixed(2);
+
+            // const exchangeRate = document.querySelector('input[name="exchange_rate_id"]').value;
+            // const totalKhr = totalAmount * exchangeRate;
+            // document.querySelector('#total_khr').value = (totalKhr).toLocaleString('KHR', {
+            //     style: 'currency',
+            //     currency: 'KHR',
+            // });
+            const roomPrice = parseFloat(document.querySelector('input[name="room_price"]').value) || 0;
+            const oldEBalance = parseFloat(document.querySelector('#old_e_balance').value) || 0;
+            const oldWBalance = parseFloat(document.querySelector('#old_w_balance').value) || 0;
+            const newEBalance = parseFloat(document.querySelector('input[name="number_e"]').value) || 0;
+            const newWBalance = parseFloat(document.querySelector('input[name="number_w"]').value) || 0;
+            const eAmountPerKilometer = parseFloat(document.querySelector('input[name="e_amount_per_kilometer"]').value) ||
+                0;
+            const wAmountPerKilometer = parseFloat(document.querySelector('input[name="w_amount_per_kilometer"]').value) ||
+                0;
+
+            let eAmount = parseFloat(document.querySelector('input[name="e_amount"]').value) || 0;
+            let wAmount = parseFloat(document.querySelector('input[name="w_amount"]').value) || 0;
+
             if (type === 'e') {
-                eAmount = eAmountPerKilometer * (newEBalance - oldEBalance);
-                document.querySelector('input[name="e_amount"]').value = eAmount;
+                eAmount = (newEBalance - oldEBalance) * eAmountPerKilometer;
+                document.querySelector('input[name="e_amount"]').value = eAmount.toFixed(2);
             } else if (type === 'w') {
-                wAmount = wAmountPerKilometer * (newWBalance - oldWBalance);
-                document.querySelector('input[name="w_amount"]').value = wAmount;
+                wAmount = (newWBalance - oldWBalance) * wAmountPerKilometer;
+                document.querySelector('input[name="w_amount"]').value = wAmount.toFixed(2);
             }
 
-            const totalAmount = +eAmount + +wAmount + +roomPrice;
-            document.querySelector('input[name="total_amount"]').value = Number(totalAmount).toFixed(2);
+            const totalAmount = roomPrice + eAmount + wAmount;
+            document.querySelector('input[name="total_amount"]').value = totalAmount.toFixed(2);
 
-            const exchangeRate = document.querySelector('input[name="exchange_rate_id"]').value;
+            const exchangeRate = parseFloat(document.querySelector('input[name="exchange_rate_id"]').value) || 1;
             const totalKhr = totalAmount * exchangeRate;
-            document.querySelector('#total_khr').value = (totalKhr).toLocaleString('KHR', {
+            document.querySelector('#total_khr').value = totalKhr.toLocaleString('en-US', {
                 style: 'currency',
                 currency: 'KHR',
+                minimumFractionDigits: 0,
             });
         }
 
         function reCalculateTotalPrice() {
-            calculateTotalPrice(document.querySelector('input[name="number_e"]'), 'e');
+            calculateTotalPrice(null, 'e');
+            calculateTotalPrice(null, 'w');
+            // calculateTotalPrice(document.querySelector('input[name="number_e"]'), 'e');
         }
     </script>
 @endpush
