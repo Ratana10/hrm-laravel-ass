@@ -102,38 +102,49 @@ class InvoiceController extends Controller
     }   
 
     public function sendTelegramMessage($invoiceId){
-        $invoice = Invoice::findOrFail($invoiceId);
+        $invoice = Invoice::with(['openRoom.customer', 'exchangeRate'])->findOrFail($invoiceId);
 
-        $openRoom = $invoice->openRoom()->first();
-        $room = $openRoom ? $openRoom->room()->first() : null; 
+        $openRoom = $invoice->openRoom;
+        $customer = $openRoom ? $openRoom->customer : null; // Retrieve the customer
+        $room = $openRoom ? $openRoom->room : null; // Retrieve the room
+    
+        $roomCode = $room ? $room->code : 'N/A';
+        $telegramChatId = $customer ? $customer->telegram_chat_id : null;
+    
+        $previousInvoice = Invoice::where('open_room_id', $invoice->open_room_id)
+        ->where('id', '<', $invoice->id)
+        ->orderBy('id', 'desc')
+        ->first();
 
         Log::info("openRoom", [$openRoom]);
 
-        // dd($invoice);
 
-        // Ensure the tenant has a Telegram chat ID
-        // if (!$tenant->telegram_chat_id) {
-        //     return back()->with('error', 'Tenant does not have a Telegram chat ID set.');
-        // }
+        if (!$customer->telegram_chat_id) {
+            return back()->with('error', 'Customer does not have a Telegram chat ID set.');
+        }
+    
 
-        $roomCode = $room->code;
-        
-        $electric_prev_balance = 100;
+        $electric_prev_balance = $previousInvoice ? $previousInvoice->number_e : 0;
+        $water_prev_balance = $previousInvoice ? $previousInvoice->number_w : 0;
+    
         $electric_current_balance = $invoice->number_e;
-        $total_electric= 100;
-        $electric_price_per_unit=  $invoice->e_amount_per_kilometer;
-        $total_electric_price= 100;
-
-        $water_prev_balance= 100;
-        $water_current_balance=  $invoice->number_w;
-        $total_water= 100;
-        $water_price_per_unit=  $invoice->w_amount_per_kilometer;
-        $total_water_price= 100;
-
-        $total_amount=  $invoice->total_amount;
+        $electric_price_per_unit = $invoice->e_amount_per_kilometer;
+    
+        // Calculate total electric usage
+        $total_electric = $electric_current_balance - $electric_prev_balance;
+        $total_electric_price = $total_electric * $electric_price_per_unit;
+    
+        $water_current_balance = $invoice->number_w;
+        $water_price_per_unit = $invoice->w_amount_per_kilometer;
+    
+        // Calculate total water usage
+        $total_water = $water_current_balance - $water_prev_balance;
+        $total_water_price = $total_water * $water_price_per_unit;
+    
+        $total_amount = $invoice->total_amount;
         $exchange_rate = $invoice->exchangeRate->khr ?? 1;
-
         $total_amount_khr = $total_amount * $exchange_rate;
+
 
         $message = "*Invoice Date:* {$invoice->date}\n\n";
         $message .= "*Room:*\n";
@@ -159,7 +170,7 @@ class InvoiceController extends Controller
 
         // $tenant->telegram_chat_id;
 
-       app(TelegramController::class)->sendMessage(1042969274, $message);
+       app(TelegramController::class)->sendMessage($telegramChatId, $message);
 
         return back()->with('success', 'Message sent to the tenant via Telegram!');
    

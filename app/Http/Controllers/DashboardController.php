@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\Invoice;
 use App\Models\OpenRoom;
 use App\Models\Payment;
 use App\Models\Room;
@@ -33,8 +34,14 @@ class DashboardController extends Controller
             $chartIncomeData[] = $incomeData[$i] ?? 0; // Fill missing months with 0
         }
 
+      
+        $outstandingBalance = Invoice::with('totalPayment')->get()->reduce(function ($carry, $invoice) {
+            $totalPayments = $invoice->totalPayment->sum('amount');
+            return $carry + ($invoice->total_amount - $totalPayments);
+        }, 0);
+     
         // dd($incomeData, $chartIncomeData);
-        return view('welcome', compact('totalRooms',  'availableRooms', 'totalTenants', 'chartIncomeData'));
+        return view('welcome', compact('totalRooms',  'availableRooms', 'totalTenants', 'chartIncomeData', 'outstandingBalance'));
 
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Invoice;
 use App\Models\Payment;
 use Illuminate\Http\Request;
 
@@ -26,7 +27,23 @@ class ReportController extends Controller
 
     public function outstanding()
     {
-        return view('reports.outstanding');
+      $invoices = Invoice::with(['openRoom.room', 'openRoom.customer', 'totalPayment'])
+      ->get()
+      ->filter(function ($invoice) {
+          // Calculate outstanding balance
+          $totalPayments = $invoice->totalPayment->sum('amount');
+          return $invoice->total_amount - $totalPayments > 0;
+      })
+      ->map(function ($invoice) {
+          return [
+              'room_code' => $invoice->openRoom->room->code,
+              'customer_name' => $invoice->openRoom->customer->first_name . ' ' . $invoice->openRoom->customer->last_name,
+              'phone' => $invoice->openRoom->customer->phone,
+              'outstanding_balance' => $invoice->total_amount - $invoice->totalPayment->sum('amount'),
+          ];
+      });
+      
+      return view('reports.outstanding', compact('invoices'));
     }
 
 
