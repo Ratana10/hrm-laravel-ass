@@ -13,13 +13,13 @@
             <a href="{{ route('invoice.index') }}" class="btn btn-danger"><i class="fa fa-reply"></i> {{ __('Back') }}</a>
             <form action="{{ route('invoice.update', $invoice->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
-  
+
                 <div class="my-3 row">
                     <!-- Exchange Rate -->
                     <div class="mb-3 col-md-3">
                         <label for="exchange_rate">{{ __('Exchange Rate') }}</label>
                         <input type="text" class="form-control bg-secondary-subtle"
-                               value="{{ $invoice->exchangeRate->khr }}" name="exchange_rate_id" readonly>
+                            value="{{ $invoice->exchangeRate->khr }}" name="exchange_rate_id" readonly>
                     </div>
 
                     <!-- Contract ID -->
@@ -60,7 +60,7 @@
                     <div class="mb-3 col-md-3">
                         <label for="old_e_balance">{{ __('Old Electric Balance') }}</label>
                         <input type="text" class="form-control bg-secondary-subtle" id="old_e_balance"
-                               value="{{ $invoice->number_e }}" disabled>
+                            value="{{ $invoice->number_e }}" disabled>
                     </div>
 
                     <!-- New Electric Balance -->
@@ -94,7 +94,7 @@
                     <div class="mb-3 col-md-3">
                         <label for="old_w_balance">{{ __('Old Water Balance') }}</label>
                         <input type="text" class="form-control bg-secondary-subtle" id="old_w_balance"
-                               value="{{ $invoice->number_w }}" disabled>
+                            value="{{ $invoice->number_w }}" disabled>
                     </div>
 
                     <!-- New Water Balance -->
@@ -145,16 +145,45 @@
 
 @push('js')
     <script>
-        function getRoomPrice(event) {
-            // Same logic as Add Invoice
-        }
-
         function calculateTotalPrice(event, type) {
-            // Same logic as Add Invoice
-        }
+    const eAmountPerKilometer = parseFloat(document.querySelector('input[name="e_amount_per_kilometer"]').value) || 0;
+    const wAmountPerKilometer = parseFloat(document.querySelector('input[name="w_amount_per_kilometer"]').value) || 0;
+    const oldEBalance = parseFloat(document.querySelector('#old_e_balance').value) || 0;
+    const oldWBalance = parseFloat(document.querySelector('#old_w_balance').value) || 0;
+    const newEBalance = parseFloat(document.querySelector('input[name="number_e"]').value) || 0;
+    const newWBalance = parseFloat(document.querySelector('input[name="number_w"]').value) || 0;
+    const roomPrice = parseFloat(document.querySelector('input[name="room_price"]').value) || 0;
 
-        function reCalculateTotalPrice() {
-            calculateTotalPrice(document.querySelector('input[name="number_e"]'), 'e');
-        }
+    let eAmount = 0;
+    let wAmount = 0;
+
+    if (type === 'e' || type === 'all') {
+        const totalElectric = Math.max(0, newEBalance - oldEBalance); // Ensure no negative value
+        eAmount = totalElectric * eAmountPerKilometer;
+        document.querySelector('input[name="e_amount"]').value = eAmount.toFixed(2);
+    }
+
+    if (type === 'w' || type === 'all') {
+        const totalWater = Math.max(0, newWBalance - oldWBalance); // Ensure no negative value
+        wAmount = totalWater * wAmountPerKilometer;
+        document.querySelector('input[name="w_amount"]').value = wAmount.toFixed(2);
+    }
+
+    // Calculate total amount (USD)
+    const totalAmount = roomPrice + eAmount + wAmount;
+    document.querySelector('input[name="total_amount"]').value = totalAmount.toFixed(2);
+
+    // Calculate total amount (KHR)
+    const exchangeRate = parseFloat(document.querySelector('input[name="exchange_rate_id"]').value) || 1;
+    const totalKhr = totalAmount * exchangeRate;
+    document.querySelector('#total_khr').value = totalKhr.toLocaleString('en-US', {
+        style: 'currency',
+        currency: 'KHR',
+    });
+}
+
+function reCalculateTotalPrice() {
+    calculateTotalPrice(null, 'all');
+}
     </script>
 @endpush

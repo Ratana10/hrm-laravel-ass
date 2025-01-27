@@ -39,9 +39,19 @@ class DashboardController extends Controller
             $totalPayments = $invoice->totalPayment->sum('amount');
             return $carry + ($invoice->total_amount - $totalPayments);
         }, 0);
+
+        $tenantsWithOutstandingInvoicesCount = Invoice::with('totalPayment')
+        ->get()
+        ->filter(function ($invoice) {
+            $totalPayments = $invoice->totalPayment->sum('amount');
+            return $invoice->total_amount > $totalPayments;
+        })
+        ->pluck('openRoom.customer_id')
+        ->unique()
+        ->count();
      
         // dd($incomeData, $chartIncomeData);
-        return view('welcome', compact('totalRooms',  'availableRooms', 'totalTenants', 'chartIncomeData', 'outstandingBalance'));
+        return view('welcome', compact('totalRooms',  'availableRooms', 'totalTenants', 'chartIncomeData', 'outstandingBalance', 'tenantsWithOutstandingInvoicesCount'));
 
     }
 }

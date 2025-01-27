@@ -29,7 +29,7 @@
                     <span class="info-box-icon bg-warning"><i class="text-white bi bi-door-open"></i></span>
                     <div class="info-box-content">
                         <span class="info-box-text">Total Room Need to Pay</span>
-                        <span class="info-box-number">{{ $totalRooms }}</span>
+                        <span class="info-box-number">{{ $tenantsWithOutstandingInvoicesCount }}</span>
                     </div>
                 </div>
             </div>
