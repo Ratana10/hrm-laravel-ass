@@ -119,7 +119,36 @@ Route::group(['middleware' => 'auth'], function(){
     // Telegram
     Route::post('/telegram/webhook', [App\Http\Controllers\TelegramController::class, 'handle']);
 
+      // Employee
+    Route::get('/employees/list', [App\Http\Controllers\EmployeeController::class, 'index'])->name('employees.index');
+    Route::get('/employees/add', [App\Http\Controllers\EmployeeController::class, 'add'])->name('employees.add');
+    Route::post('/employees/store', [App\Http\Controllers\EmployeeController::class, 'store'])->name('employees.store');
+    Route::get('/employees/{employeeId}/edit', [App\Http\Controllers\EmployeeController::class, 'edit'])->name('employees.edit');
+    Route::post('/employees/update/{employeeId}', [App\Http\Controllers\EmployeeController::class, 'update'])->name('employees.update');
+    Route::get('/employees/{employeeId}/delete', [App\Http\Controllers\EmployeeController::class, 'delete'])->name('employees.delete');
 
+
+    Route::get('/attendances/list', [App\Http\Controllers\AttendanceController::class, 'index'])->name('attendances.index');
+    Route::get('/attendances/add', [App\Http\Controllers\AttendanceController::class, 'add'])->name('attendances.add');
+    Route::post('/attendances/store', [App\Http\Controllers\AttendanceController::class, 'store'])->name('attendances.store');
+    Route::get('/attendances/{attendanceId}/edit', [App\Http\Controllers\AttendanceController::class, 'edit'])->name('attendances.edit');
+    Route::post('/attendances/update/{attendanceId}', [App\Http\Controllers\AttendanceController::class, 'update'])->name('attendances.update');
+    Route::get('/attendances/{attendanceId}/delete', [App\Http\Controllers\AttendanceController::class, 'delete'])->name('attendances.delete');
+
+
+    Route::get('/leaves/list', [App\Http\Controllers\LeaveController::class, 'index'])->name('leaves.index');
+    Route::get('/leaves/add', [App\Http\Controllers\LeaveController::class, 'add'])->name('leaves.add');
+    Route::post('/leaves/store', [App\Http\Controllers\LeaveController::class, 'store'])->name('leaves.store');
+    Route::get('/leaves/{leaveId}/edit', [App\Http\Controllers\LeaveController::class, 'edit'])->name('leaves.edit');
+    Route::post('/leaves/update/{leaveId}', [App\Http\Controllers\LeaveController::class, 'update'])->name('leaves.update');
+    Route::get('/leaves/{leaveId}/delete', [App\Http\Controllers\LeaveController::class, 'delete'])->name('leaves.delete');
+
+    Route::get('/payrolls/list', [App\Http\Controllers\PayrollController::class, 'index'])->name('payrolls.index');
+    Route::get('/payrolls/add', [App\Http\Controllers\PayrollController::class, 'add'])->name('payrolls.add');
+    Route::post('/payrolls/store', [App\Http\Controllers\PayrollController::class, 'store'])->name('payrolls.store');
+    Route::get('/payrolls/{payrollId}/edit', [App\Http\Controllers\PayrollController::class, 'edit'])->name('payrolls.edit');
+    Route::post('/payrolls/update/{payrollId}', [App\Http\Controllers\PayrollController::class, 'update'])->name('payrolls.update');
+    Route::get('/payrolls/{payrollId}/delete', [App\Http\Controllers\PayrollController::class, 'delete'])->name('payrolls.delete');
 });
 
 Route::fallback(function(){
