@@ -14,5 +14,8 @@ class Employee extends Model
         'work_date', 
         'status',
     ];
-
+    public function user()
+    {
+        return $this->hasOne(User::class);
+    }
 }

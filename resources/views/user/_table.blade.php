@@ -21,31 +21,41 @@
                         <img src="{{ $user->photo ? asset($user->photo) : asset('default/no_photo.avif') }}"
                             width="50" height="50">
                     </td>
+                    @if ($user->name !== 'Admin')
                     <td>
                         <div class="btn-group">
-                            <a href="{{ route('user.edit', $user->id) }}" class="btn btn-success"><i
-                                    class="fa fa-pen"></i>
-                                {{ __('Edit') }}
-                            </a>
+                            <a href="{{ route('user.edit', $user->id) }}" class="btn btn-success"><i class="fa fa-pen"></i> {{ __('Edit') }}</a>
 
-                            <button type="button" class="btn btn-danger bg-danger popover border-danger"
-                                data-bs-container="body" role="button" data-html="true" data-bs-toggle="popover"
-                                data-bs-placement="left" data-bs-title="{{ __('Are you sure ?') }}"
-                                data-bs-template='
-                                
-                                <div class="p-3 bg-white popover" role="tooltip">
-                                  <div class="popover-arrow"></div>
-                                <div class="popover-inner"><h4>{{ __('Are you sure ?') }}</h4></div>
-                                <div class="text-center popover-footer">
-                                  <a href="#" class="btn btn-secondary" data-bs-dismiss="popover"><i class="fa fa-times"></i> {{ __('No') }}</a>
-                                  <a href="{{ route('user.delete', $user->id) }}" class="btn btn-danger"><i class="fa fa-trash"></i> {{ __('Yes') }}</a>
-                                </div>
-                                
-                                '>
+                            <!-- Delete Button to Trigger Modal -->
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $user->id }}">
                                 <i class="fa fa-trash"></i> {{ __('Delete') }}
                             </button>
                         </div>
+
+                        <!-- Delete Modal for Each User -->
+                        <div class="modal fade" id="deleteModal{{ $user->id }}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteModalLabel">{{ __('Are you sure?') }}</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        {{ __('Do you want to delete this user record? This action cannot be undone.') }}
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Cancel') }}</button>
+
+                                        <a href="{{ route('user.delete', $user->id) }}">
+                                           
+                                            <button type="submit" class="btn btn-danger">{{ __('Delete') }}</button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </td>
+                    @endif
                 </tr>
             @endforeach
         </tbody>

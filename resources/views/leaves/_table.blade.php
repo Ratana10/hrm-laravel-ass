@@ -58,5 +58,3 @@
         </tbody>
     </table>
 </div>
-
-{{ $leaves->links('pagination::bootstrap-5') }}

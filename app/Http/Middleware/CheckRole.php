@@ -66,7 +66,6 @@ class CheckRole
             ],
 
             'employee' => [
-                'home',
                 // Attendances
                 'attendances.index',
                 'attendances.add',
@@ -93,6 +92,9 @@ class CheckRole
 
         $allowedRoutes = $permissions[$userRole];
 
+        if ($userRole == 'employee' && !in_array($routeName, $allowedRoutes)) {
+            return redirect('/attendances/list');
+        }
 
         if (in_array('*', $allowedRoutes) || in_array($routeName, $allowedRoutes)) {
             return $next($request);

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Attendance;
 use App\Models\Employee;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class AttendanceController extends Controller
 {
@@ -13,7 +15,19 @@ class AttendanceController extends Controller
      */
     public function index()
     {
-        $attendances =Attendance::with('employee')->paginate(10); 
+        $userRole = strtolower(Auth::user()->role->name);
+        $userId = Auth::id();
+        $allAccessRoles = ['admin', 'hr'];
+
+        if(in_array($userRole, $allAccessRoles)){
+            $attendances = Attendance::with('employee')->get();
+        }else{
+            $user = User::with('employee')->find($userId); 
+
+            $attendances =Attendance::with('employee')
+            ->where('employee_id', $user->employee->id)
+            ->get(); 
+        }
 
         return view('attendances.index', compact('attendances'));
     }
@@ -23,8 +37,12 @@ class AttendanceController extends Controller
      */
     public function add()
     {
-        $employees = Employee::all();
-        return view('attendances.add',  compact('employees'));
+        $userId = Auth::id();
+        $user = User::with('employee')->find($userId);  // Eager load 'employee'
+  
+        $employee = $user->employee;
+         
+        return view('attendances.add',  compact('employee'));
     }
 
     /**

@@ -34,8 +34,16 @@
                                 <option value="{{ $role->id }}">{{ $role->name }}</option>
                             @endforeach
                         </select>
-                    </div>
-
+                        </div>
+                        <div class="mb-3">
+                            <label >{{ __('Employees') }} <span class="text-danger">*</span></label>
+                            <select class="form-control" name="employee_id" required>
+                                <option value="">{{ __('Select Employee') }}</option>
+                                @foreach($employees as $employee)
+                                    <option value="{{ $employee->id }}">{{ $employee->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                         <div class="mb-3">
                             <label for="phone">{{ __('Phone') }}</label>
                             <input type="text" name="phone" class="form-control">
@@ -50,6 +58,9 @@
                         </div>
                         <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>
                             {{ __('Save') }}</button>
+                    </div>
+                    
+                       
                     </div>
                 </div>
             </div>

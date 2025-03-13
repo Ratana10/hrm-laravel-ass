@@ -14,15 +14,14 @@
             <form action="{{ route('attendances.store') }}" method="POST">
                 @csrf
                 <div class="my-3 row">
-                    <div class="mb-3 col-md-6">
+                <div class="mb-3 col-md-6">
                         <label for="employee_id">{{ __('Employee') }} <span class="text-danger">*</span></label>
                         <select class="form-control" name="employee_id" required>
-                            <option value="">{{ __('Select Employee') }}</option>
-                            @foreach($employees as $employee)
-                                <option value="{{ $employee->id }}">{{ $employee->name }}</option>
-                            @endforeach
+                            <option value={{ $employee->id }}>{{ $employee->name ?? 'N/A' }}</option>
+                           
                         </select>
                     </div>
+
 
                     <div class="mb-3 col-md-6">
                         <label for="check_in">{{ __('Check In') }} <span class="text-danger">*</span></label>

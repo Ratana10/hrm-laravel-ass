@@ -1,10 +1,13 @@
 <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
+    @if(Auth::check() && (strtolower(Auth::user()->role->name) === 'admin' || strtolower(Auth::user()->role->name) === 'hr'))
     <li class="nav-item">
         <a href="{{ route('home') }}" class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}"> <i
                 class="nav-icon bi bi-palette"></i>
             <p>{{ __('Dashboard') }}</p>
         </a>
     </li>
+    @endif
+
     @if(Auth::check() && (strtolower(Auth::user()->role->name) === 'admin' || strtolower(Auth::user()->role->name) === 'hr'))
     <li class="nav-item">
         <a href="{{ route('employees.index') }}"

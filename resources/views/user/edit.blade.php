@@ -27,8 +27,26 @@
                             <input type="text" name="name" value="{{ $user->name }}" class="form-control" required>
                         </div>
                         <div class="mb-3">
+                            <label >{{ __('Roles') }} <span class="text-danger">*</span></label>
+                            <select class="form-control" name="role_id" required>
+                                <option value="{{ $user->role_id }}">{{ $user->role->name }}</option>
+                                @foreach($roles as $role)
+                                    <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label >{{ __('Employees') }} <span class="text-danger">*</span></label>
+                            <select class="form-control" name="employee_id" required>
+                                <option value="{{ $user->employee_id }}">{{ $user->employee->name }}</option>
+                                @foreach($employees as $employee)
+                                    <option value="{{ $employee->id }}">{{ $employee->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-3">
                             <label for="phone">{{ __('Phone') }}</label>
-                            <input type="text" name="phone" class="form-control">
+                            <input type="text" name="phone" class="form-control"  value="{{ $user->phone }}" >
                         </div>
                         <div class="mb-3">
                             <label for="email">{{ __('Email') }} <span class="text-danger">*</span></label>

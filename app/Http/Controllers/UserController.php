@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Role;
+use App\Models\Employee;
 use Hash;
 
 class UserController extends Controller
@@ -15,7 +16,8 @@ class UserController extends Controller
     }
     public function add(){
         $roles = Role::all();
-        return view('user.create', compact('roles'));
+        $employees = Employee::all();
+        return view('user.create', compact('roles', 'employees'));
     }
     public function store(Request $r){
         $user = new User();
@@ -25,12 +27,16 @@ class UserController extends Controller
         $user->photo = $r->hasFile('photo') ? $r->file('photo')->store('user','custom') : null;
         $user->phone = $r->phone;
         $user->role_id = $r->role_id;
+        $user->employee_id = $r->employee_id;
+
         $user->save();
         return redirect()->route('user.index')->with('success', 'User create successfully');
     }
     public function edit($id){
         $user = User::find($id);
-        return view('user.edit', compact('user'));
+        $roles = Role::all();
+        $employees = Employee::all();
+        return view('user.edit', compact('user', 'roles', 'employees'));
     }
     public function update(Request $r, $id){
         $user = User::find($id);

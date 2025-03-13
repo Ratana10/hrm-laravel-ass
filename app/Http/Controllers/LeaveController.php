@@ -5,15 +5,30 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Leave;
 use App\Models\Employee;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class LeaveController extends Controller
 {
+   
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $leaves =Leave::with('employee')->paginate(10); 
+        $userRole = strtolower(Auth::user()->role->name);
+        $userId = Auth::id();
+        $allAccessRoles = ['admin', 'hr'];
+
+        if(in_array($userRole, $allAccessRoles)){
+            $leaves = Leave::with('employee')->get();
+        }else{
+            $user = User::with('employee')->find($userId); 
+
+            $leaves =Leave::with('employee')
+            ->where('employee_id', $user->employee->id)
+            ->get(); 
+        }
 
         return view('leaves.index', compact('leaves'));
     }
@@ -23,8 +38,13 @@ class LeaveController extends Controller
      */
     public function add()
     {
-        $employees = Employee::all();
-        return view('leaves.add',  compact('employees'));
+
+        $userId = Auth::id();
+      $user = User::with('employee')->find($userId);  // Eager load 'employee'
+
+      $employee = $user->employee;
+       
+        return view('leaves.add',  compact('employee'));
     }
 
     /**
@@ -33,12 +53,11 @@ class LeaveController extends Controller
     public function store(Request $request)
     {
         
-
         // Validate the form data
         $validated = $request->validate([
             'employee_id' => 'required|exists:employees,id',
             'start_date' => 'required|date',
-            'end_date' => 'required|date|after:check_in',
+            'end_date' => 'required|date',
             'reason' => 'required|string|max:255',
         ]);
 
