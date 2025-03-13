@@ -113,4 +113,13 @@ class LeaveController extends Controller
         $leave->delete();
         return redirect()->route('leaves.index')->with('success', 'Leave deleted successfully.');
     }
+
+    public function updateStatus($id, $status)
+    {
+        $leave = Leave::findOrFail($id);
+        $leave->status = $status;
+        $leave->save();
+
+        return redirect()->route('leaves.index')->with('success', 'Leave status updated successfully!');
+    }
 }

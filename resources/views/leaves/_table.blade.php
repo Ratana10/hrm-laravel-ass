@@ -19,15 +19,34 @@
                     <td>{{ $leave->start_date }}</td>
                     <td>{{ $leave->end_date }}</td>
                     <td>{{ $leave->reason }}</td>
-                    <td>{{ $leave->status }}</td>
+                    <td>
+                        @if ($leave->status == 'pending')
+                            <span class="badge bg-warning text-dark">{{ __('Pending') }}</span>
+                        @elseif ($leave->status == 'approved')
+                            <span class="badge bg-success">{{ __('Approved') }}</span>
+                        @else
+                            <span class="badge bg-danger">{{ __('Rejected') }}</span>
+                        @endif
+                    </td>
                     <td>
                         <div class="btn-group">
-                            <a href="{{ route('leaves.edit', $leave->id) }}" class="btn btn-success"><i class="fa fa-pen"></i> {{ __('Edit') }}</a>
+                            @if(Auth::check() && (strtolower(Auth::user()->role->name) === 'admin' || strtolower(Auth::user()->role->name) === 'hr'))
 
+                                <a href="{{ route('leaves.updateStatus', ['id' => $leave->id, 'status' => 'rejected']) }}" class="btn btn-danger">{{ __('Reject') }}</a>
+
+                                <a href="{{ route('leaves.updateStatus', ['id' => $leave->id, 'status' => 'approved']) }}" class="btn btn-success">{{ __('Approve') }}</a>
+                            @endif
+
+                            @if($leave->status === 'pending')
+
+                                <a href="{{ route('leaves.edit', $leave->id) }}" class="btn btn-success"><i class="fa fa-pen"></i> {{ __('Edit') }}</a>
+ 
                             <!-- Delete Button to Trigger Modal -->
                             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $leave->id }}">
                                 <i class="fa fa-trash"></i> {{ __('Delete') }}
                             </button>
+
+                            @endif
                         </div>
 
                         <!-- Delete Modal for Each Leave -->

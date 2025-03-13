@@ -55,6 +55,7 @@ Route::middleware(['auth', 'role'])->group(function(){
     Route::get('/leaves/{leaveId}/edit', [App\Http\Controllers\LeaveController::class, 'edit'])->name('leaves.edit');
     Route::post('/leaves/update/{leaveId}', [App\Http\Controllers\LeaveController::class, 'update'])->name('leaves.update');
     Route::get('/leaves/{leaveId}/delete', [App\Http\Controllers\LeaveController::class, 'delete'])->name('leaves.delete');
+    Route::get('/leaves/{id}/status/{status}', [App\Http\Controllers\LeaveController::class, 'updateStatus'])->name('leaves.updateStatus');
 
     Route::get('/payrolls/list', [App\Http\Controllers\PayrollController::class, 'index'])->name('payrolls.index');
     Route::get('/payrolls/add', [App\Http\Controllers\PayrollController::class, 'add'])->name('payrolls.add');

@@ -10,6 +10,7 @@ Ensure your system meets the following requirements before installation:
 - [Laravel >= 10](https://laravel.com/docs/10.x/installation)
 - [MySQL](https://dev.mysql.com/downloads/)
 - [Composer](https://getcomposer.org/download/)
+- [Node.js & npm](https://nodejs.org/en/download/) (for frontend assets)
 
 
 ## Installation
@@ -17,8 +18,8 @@ Follow these steps to set up the project:
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/your-repository.git
-   cd your-project-folder
+   git clone https://github.com/Ratana10/hrm-laravel-ass.git
+   cd hrm-laravel-ass
    ```
 
 2. Install dependencies:
@@ -41,8 +42,27 @@ Follow these steps to set up the project:
    ```sh
    php artisan migrate --seed
    ```
-
-6. Start the development server:
+6. Go to AdminLte:
+   ```sh
+   cd public/adminltev4
+   ```
+7. Install adminLte:
+   ```sh
+   npm install
+   ```
+8. Install adminLte:
+   ```sh
+   npm run dev
+   ```
+8. Once it start we can stop by:
+   ```sh
+   ctl + c
+   ```
+8. Exit from adminLte:
+   ```sh
+   cd ../..
+   ```
+9. Start the development server:
    ```sh
    php artisan serve
    ```
@@ -56,4 +76,3 @@ For questions or support:
 
 - Telegram: [https://t.me/Ratana10](https://t.me/Ratana10)
 - Email: [sanratana18@gmail.com](mailto:sanratana18@gmail.com)
-
