@@ -25,6 +25,17 @@
                             <label for="name">{{ __('Name') }} <span class="text-danger">*</span></label>
                             <input type="text" name="name" class="form-control" required>
                         </div>
+
+                        <div class="mb-3">
+                        <label >{{ __('Roles') }} <span class="text-danger">*</span></label>
+                        <select class="form-control" name="role_id" required>
+                            <option value="">{{ __('Select Role') }}</option>
+                            @foreach($roles as $role)
+                                <option value="{{ $role->id }}">{{ $role->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
                         <div class="mb-3">
                             <label for="phone">{{ __('Phone') }}</label>
                             <input type="text" name="phone" class="form-control">

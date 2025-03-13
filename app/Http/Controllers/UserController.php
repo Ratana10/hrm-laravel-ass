@@ -4,16 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Role;
 use Hash;
 
 class UserController extends Controller
 {
     public function index(){
-        $users = User::paginate(10);
+        $users = User::with("role")->paginate(10);
         return view('user.index', compact('users'));
     }
     public function add(){
-        return view('user.create');
+        $roles = Role::all();
+        return view('user.create', compact('roles'));
     }
     public function store(Request $r){
         $user = new User();
@@ -22,6 +24,7 @@ class UserController extends Controller
         $user->password = Hash::make($r->password);
         $user->photo = $r->hasFile('photo') ? $r->file('photo')->store('user','custom') : null;
         $user->phone = $r->phone;
+        $user->role_id = $r->role_id;
         $user->save();
         return redirect()->route('user.index')->with('success', 'User create successfully');
     }

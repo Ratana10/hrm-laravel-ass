@@ -149,6 +149,15 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/payrolls/{payrollId}/edit', [App\Http\Controllers\PayrollController::class, 'edit'])->name('payrolls.edit');
     Route::post('/payrolls/update/{payrollId}', [App\Http\Controllers\PayrollController::class, 'update'])->name('payrolls.update');
     Route::get('/payrolls/{payrollId}/delete', [App\Http\Controllers\PayrollController::class, 'delete'])->name('payrolls.delete');
+
+
+    
+    Route::get('/roles/list', [App\Http\Controllers\RoleController::class, 'index'])->name('roles.index');
+    Route::get('/roles/add', [App\Http\Controllers\RoleController::class, 'add'])->name('roles.add');
+    Route::post('/roles/store', [App\Http\Controllers\RoleController::class, 'store'])->name('roles.store');
+    Route::get('/roles/{roleId}/edit', [App\Http\Controllers\RoleController::class, 'edit'])->name('roles.edit');
+    Route::post('/roles/update/{roleId}', [App\Http\Controllers\RoleController::class, 'update'])->name('roles.update');
+    Route::get('/roles/{roleId}/delete', [App\Http\Controllers\RoleController::class, 'delete'])->name('roles.delete');
 });
 
 Route::fallback(function(){

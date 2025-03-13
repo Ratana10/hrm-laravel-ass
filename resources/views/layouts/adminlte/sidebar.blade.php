@@ -45,18 +45,26 @@
             </p>
         </a>
         <ul class="nav nav-treeview">
-            <li class="nav-item">
-                <a href="{{ route('company.index') }}"
-                    class="nav-link {{ request()->routeIs('company.index') ? 'active' : '' }}"> <i
-                        class="nav-icon bi bi-circle"></i>
-                    <p>{{ __('Company') }}</p>
-                </a>
-            </li>
+           
             <li class="nav-item">
                 <a href="{{ route('user.index') }}"
                     class="nav-link {{ request()->routeIs('user.index') ? 'active' : '' }}"> <i
                         class="nav-icon bi bi-circle"></i>
                     <p>{{ __('User') }}</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('roles.index') }}"
+                    class="nav-link {{ request()->routeIs('roles.index') ? 'active' : '' }}"> <i
+                        class="nav-icon bi bi-circle"></i>
+                    <p>{{ __('Roles') }}</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('company.index') }}"
+                    class="nav-link {{ request()->routeIs('company.index') ? 'active' : '' }}"> <i
+                        class="nav-icon bi bi-circle"></i>
+                    <p>{{ __('Company') }}</p>
                 </a>
             </li>
         </ul>

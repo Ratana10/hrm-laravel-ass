@@ -5,6 +5,7 @@
             <td>{{ __('Name') }}</td>
             <td>{{ __('Phone') }}</td>
             <td>{{ __('Email') }}</td>
+            <td>{{ __('Role') }}</td>
             <td>{{ __('Photo') }}</td>
             <td>{{ __('Action') }}</td>
         </thead>
@@ -15,6 +16,7 @@
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->phone }}</td>
                     <td>{{ $user->email }}</td>
+                    <td>{{ $user->role->name ?? 'N/A' }}</td>
                     <td>
                         <img src="{{ $user->photo ? asset($user->photo) : asset('default/no_photo.avif') }}"
                             width="50" height="50">
