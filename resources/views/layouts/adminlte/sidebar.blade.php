@@ -5,6 +5,7 @@
             <p>{{ __('Dashboard') }}</p>
         </a>
     </li>
+    @if(Auth::check() && (strtolower(Auth::user()->role->name) === 'admin' || strtolower(Auth::user()->role->name) === 'hr'))
     <li class="nav-item">
         <a href="{{ route('employees.index') }}"
                 class="nav-link {{ request()->routeIs('employees.index') || request()->routeIs('employees.add') || request()->routeIs('employees.edit') ? 'active' : '' }}">
@@ -12,6 +13,8 @@
                 <p>{{ __('Employee') }}</p>
             </a>
     </li>
+    @endif
+
     <li class="nav-item">
         <a href="{{ route('attendances.index') }}"
                 class="nav-link {{ request()->routeIs('attendances.index') || request()->routeIs('attendances.add') || request()->routeIs('attendances.edit') ? 'active' : '' }}">
@@ -19,6 +22,9 @@
                 <p>{{ __('Attendance') }}</p>
         </a>
     </li>
+
+
+
     <li class="nav-item">
         <a href="{{ route('leaves.index') }}"
                 class="nav-link {{ request()->routeIs('leaves.index') || request()->routeIs('leaves.add') || request()->routeIs('leaves.edit') ? 'active' : '' }}">
@@ -26,6 +32,9 @@
                 <p>{{ __('Leave') }}</p>
             </a>
     </li>
+
+
+    @if(Auth::check() && (strtolower(Auth::user()->role->name) === 'admin' || strtolower(Auth::user()->role->name) === 'hr'))
     <li class="nav-item">
         <a href="{{ route('payrolls.index') }}"
                 class="nav-link {{ request()->routeIs('payrolls.index') || request()->routeIs('payrolls.add') || request()->routeIs('payrolls.edit') ? 'active' : '' }}">
@@ -33,8 +42,9 @@
                 <p>{{ __('Payroll') }}</p>
             </a>
     </li>
+    @endif
    
-   
+    @if(Auth::check() && (strtolower(Auth::user()->role->name) === 'admin'))
     <li
         class="nav-item {{ request()->routeIs('company.index') || request()->routeIs('user.index') || request()->routeIs('exchange_rate.index') || request()->routeIs('payment_method.index') ? 'menu-open' : '' }}">
         <a href="#" class="nav-link">
@@ -69,5 +79,7 @@
             </li>
         </ul>
     </li>
+    @endif
+
 
 </ul> <!--end::Sidebar Menu-->

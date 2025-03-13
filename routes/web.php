@@ -9,7 +9,7 @@ Auth::routes(['register' => false, 'login' => false]);
 Route::get('/login', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('login');
 Route::post('/login-form', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('login_post');
 
-Route::group(['middleware' => 'auth'], function(){
+Route::middleware(['auth', 'role'])->group(function(){
     // Route::get('/', function () {
     //     return view('welcome');
     // })->name('home');
@@ -150,8 +150,6 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/payrolls/update/{payrollId}', [App\Http\Controllers\PayrollController::class, 'update'])->name('payrolls.update');
     Route::get('/payrolls/{payrollId}/delete', [App\Http\Controllers\PayrollController::class, 'delete'])->name('payrolls.delete');
 
-
-    
     Route::get('/roles/list', [App\Http\Controllers\RoleController::class, 'index'])->name('roles.index');
     Route::get('/roles/add', [App\Http\Controllers\RoleController::class, 'add'])->name('roles.add');
     Route::post('/roles/store', [App\Http\Controllers\RoleController::class, 'store'])->name('roles.store');
