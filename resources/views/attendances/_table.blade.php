@@ -22,14 +22,14 @@
                         <div class="btn-group">
                             <a href="{{ route('attendances.edit', $attendance->id) }}" class="btn btn-success"><i class="fa fa-pen"></i> {{ __('Edit') }}</a>
 
-                            <!-- Delete Button to Trigger Modal -->
-                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" 
-                                    data-attendance-id="{{ $attendance->id }}">
-                                <i class="fa fa-trash"></i> {{ __('Delete') }}
-                            </button>
+                        <!-- Delete Button to Trigger Modal -->
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $attendance->id }}">
+                            <i class="fa fa-trash"></i> {{ __('Delete') }}
+                        </button>
+
                         </div>
 
-                        <!-- Delete Modal for Each Attendance -->
+                        <!-- Delete Modal for Each Leave -->
                         <div class="modal fade" id="deleteModal{{ $attendance->id }}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
@@ -42,7 +42,6 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Cancel') }}</button>
-
                                         <a href="{{ route('attendances.delete', $attendance->id) }}">
                                            
                                             <button type="submit" class="btn btn-danger">{{ __('Delete') }}</button>
@@ -52,6 +51,7 @@
                             </div>
                         </div>
                     </td>
+                   
                 </tr>
             @endforeach
         </tbody>

@@ -9,9 +9,12 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-6">
-                    <a href="{{ route('leaves.add') }}" class="btn btn-primary"><i class="fa fa-plus"></i>
-                        {{ __('Add') }}</a>
-                </div>
+                @if(!(Auth::check() && strtolower(Auth::user()->role->name) === 'admin'))
+                    <a href="{{ route('leaves.add') }}" class="btn btn-primary">
+                        <i class="fa fa-plus"></i> {{ __('Add') }}
+                    </a>
+                @endif
+                   
                 <div class="col"></div>
                 <div class="col-3">
 

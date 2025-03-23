@@ -88,7 +88,7 @@ class EmployeeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $employeeId)
+    public function delete(string $employeeId)
     {
         $employee = Employee::find($employeeId);
         $employee->delete();
